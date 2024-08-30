@@ -1,10 +1,180 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My Profile</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anish J</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #77aaff 3px solid;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        .showcase {
+            min-height: 400px;
+            background: url('showcase.jpg') no-repeat 0 -400px;
+            text-align: center;
+            color: #fff;
+        }
+        .showcase h1 {
+            margin-top: 100px;
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+        .showcase p {
+            font-size: 20px;
+        }
+        .main {
+            padding: 20px;
+            background: #fff;
+        }
+        .main h2 {
+            text-align: center;
+            padding: 10px;
+        }
+        .main .content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .main .content div {
+            padding: 20px;
+            background: #e4e4e4;
+            border-radius: 8px;
+        }
+        footer {
+            padding: 20px;
+            margin-top: 20px;
+            color: #fff;
+            background-color: #333;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello, I'm Anish J!</h1>
-    <p>Welcome to my profile page.</p>
+    <header>
+        <div class="container">
+            <div id="branding">
+                <h1>Anish J</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#education">Education</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="showcase">
+        <div class="container">
+            <h1>Welcome to My Profile</h1>
+            <p>Professional and Personal Information</p>
+        </div>
+    </section>
+
+    <section class="main">
+        <div class="container">
+            <h2 id="about">About Me</h2>
+            <p>Brief introduction about yourself.</p>
+
+            <h2 id="experience">Work Experience</h2>
+            <div class="content">
+                <div>
+                    <h3>Associate Product Manager</h3>
+                    <p><strong>Cognizant Technology Solutions</strong>, December 2023 – Present, Chennai</p>
+                    <ul>
+                        <li>Assisted in product feature definitions and representations using Lucidchart to roll out an improved customer mobile web app</li>
+                        <li>Monitoring of feature flags on split.io which enables user based A/B testing</li>
+                        <li>Documented Product flows on confluence and presented slides as part of Product training</li>
+                        <li>Collaborated with the client engineering team along with the SRE team in production issues and prioritising bug tickets</li>
+                        <li>Participated in bug bash sessions for product and UI/UX enhancements</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Site Reliability Engineer</h3>
+                    <p><strong>Cognizant Technology Solutions</strong>, July 2021 – Present, Chennai, Tamil Nadu</p>
+                    <ul>
+                        <li>Served as the primary Point of Contact (POC) for an RSA application handling client data for policy, vehicle coverage, oversaw day-to-day issue resolution and managed customer/tech jira tickets</li>
+                        <li>Led the team in migration from the old system to the next-gen platform and facilitated knowledge transfer</li>
+                        <li>Presented Splunk and Sigma reports to clients, proactively identified potential issues and insights for system improvements and scalability adjustments based on client traffic patterns that resulted in a 5% soft dollar reduction and also automated the process for 50% of clients</li>
+                        <li>Teamed up with engineering teams to implement enhancements in the migration process, gathering suggestions for in-depth analysis on positive and negative business impacts</li>
+                        <li>Handled deployments on Harness, post-deployment issues monitoring using Datadog monitors, dashboards and Rollbar with a focus on the lowest downtime</li>
+                        <li>Filed the workflow and triage processes of the next-gen product as runbooks and playbooks to incorporate the reliability process</li>
+                        <li>Defined incident processes and Infrastructure as Code (IaC) using Terraform, PagerDuty and incident.io</li>
+                        <li>Carried out post-mortem analysis to seal the gaps and refine the process to avert incident repetitions</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h2 id="education">Education</h2>
+            <div class="content">
+                <div>
+                    <h3>Degree</h3>
+                    <p>Institution, Graduation Date</p>
+                </div>
+            </div>
+
+            <h2 id="skills">Skills</h2>
+            <div class="content">
+                <div>
+                    <p>List of your key skills.</p>
+                </div>
+            </div>
+
+            <h2 id="contact">Contact</h2>
+            <div class="content">
+                <div>
+                    <p>Email: your.email@example.com</p>
+                    <p>Phone: +123 456 7890</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>AJ's Professional Profile © 2024</p>
+    </footer>
 </body>
 </html>
