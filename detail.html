@@ -39,9 +39,11 @@
     <div class="wrap">© <span id="year"></span> Anish J · <a href="index.html">Home</a></div>
   </footer>
 
+  <script src="config.js"></script>
   <script src="data.js"></script>
+  <script src="blog.js"></script>
   <script>
-    (function () {
+    (function (global) {
       var S = PORTFOLIO.sections;
       var order = PORTFOLIO.order;
 
@@ -125,7 +127,32 @@
       }
 
       document.getElementById('detail-body').innerHTML = sec.blocks.map(renderBlock).join('');
-    })();
+
+      // ---- Blog: load live posts from the configured sheet (falls back to samples) ----
+      if (key === 'blog' && global.BlogSource) {
+        var cardsEl = document.querySelector('#detail-body .cards');
+        if (cardsEl) {
+          cardsEl.insertAdjacentHTML('beforebegin',
+            '<p class="blk-para" id="blog-loading" style="opacity:.7">Loading latest posts…</p>');
+        }
+        global.BlogSource.fetchBlogs().then(function (posts) {
+          var loading = document.getElementById('blog-loading');
+          if (loading) loading.remove();
+          if (!posts || !posts.length) return; // keep built-in samples
+          var html = posts.map(function (p) {
+            var meta = [p.category, p.date].filter(Boolean).join(' · ');
+            var link = p.link
+              ? '<a class="c-link" href="' + p.link + '" target="_blank" rel="noopener">Read →</a>'
+              : '';
+            return '<div class="c-card"><h3>' + fmt(p.title) + '</h3>' +
+              (meta ? '<p class="c-meta">' + fmt(meta) + '</p>' : '') +
+              '<p class="c-text">' + fmt(p.summary) + '</p>' + link + '</div>';
+          }).join('');
+          var container = document.querySelector('#detail-body .cards');
+          if (container) container.innerHTML = html;
+        });
+      }
+    })(window);
   </script>
   <script src="glance.js"></script>
 </body>
