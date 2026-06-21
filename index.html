@@ -71,16 +71,9 @@
       var tabsEl = document.getElementById('tabs');
       tabsEl.innerHTML = order.map(function (key) {
         var s = S[key];
-        var bullets = s.preview.map(function (b) { return '<li>' + b + '</li>'; }).join('');
         return '' +
           '<div class="tab">' +
-            '<a href="detail.html?s=' + key + '"><span class="tab-ico">' + s.icon + '</span>' + s.label + '</a>' +
-            '<div class="flyout">' +
-              '<h4>' + s.label + '</h4>' +
-              '<p class="fly-tag">' + s.tagline + '</p>' +
-              '<ul>' + bullets + '</ul>' +
-              '<span class="fly-open">Open ' + s.label + ' →</span>' +
-            '</div>' +
+            '<a href="detail.html?s=' + key + '" data-glance="' + key + '"><span class="tab-ico">' + s.icon + '</span>' + s.label + '</a>' +
           '</div>';
       }).join('');
 
@@ -88,23 +81,19 @@
       var bentoEl = document.getElementById('bento');
       bentoEl.innerHTML = order.map(function (key) {
         var s = S[key];
-        var bullets = s.preview.map(function (b) { return '<li>' + b + '</li>'; }).join('');
         return '' +
-          '<a class="tile" href="detail.html?s=' + key + '" aria-label="Open ' + s.label + '">' +
+          '<a class="tile" href="detail.html?s=' + key + '" data-glance="' + key + '" aria-label="Open ' + s.label + '">' +
             '<span class="tile-arrow">↗</span>' +
             '<span class="tile-ico">' + s.icon + '</span>' +
             '<div>' +
               '<h3>' + s.label + '</h3>' +
               '<p class="tile-tag">' + s.tagline + '</p>' +
             '</div>' +
-            '<div class="tile-reveal">' +
-              '<div class="rv-label">' + s.label + ' · at a glance</div>' +
-              '<ul>' + bullets + '</ul>' +
-              '<span class="rv-open">Open in detail →</span>' +
-            '</div>' +
+            '<span class="tile-hint">Hover to preview · click to open</span>' +
           '</a>';
       }).join('');
     })();
   </script>
+  <script src="glance.js"></script>
 </body>
 </html>
