@@ -70,13 +70,10 @@
       // ---- top tabs (with flyouts, same as home) ----
       document.getElementById('tabs').innerHTML = order.map(function (k) {
         var s = S[k];
-        var bullets = s.preview.map(function (b) { return '<li>' + b + '</li>'; }).join('');
         var cls = (k === key) ? 'tab active' : 'tab';
         return '' +
           '<div class="' + cls + '">' +
-            '<a href="detail.html?s=' + k + '"><span class="tab-ico">' + s.icon + '</span>' + s.label + '</a>' +
-            '<div class="flyout"><h4>' + s.label + '</h4><p class="fly-tag">' + s.tagline + '</p>' +
-            '<ul>' + bullets + '</ul><span class="fly-open">Open ' + s.label + ' →</span></div>' +
+            '<a href="detail.html?s=' + k + '" data-glance="' + k + '"><span class="tab-ico">' + s.icon + '</span>' + s.label + '</a>' +
           '</div>';
       }).join('');
 
@@ -130,5 +127,6 @@
       document.getElementById('detail-body').innerHTML = sec.blocks.map(renderBlock).join('');
     })();
   </script>
+  <script src="glance.js"></script>
 </body>
 </html>

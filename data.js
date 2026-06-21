@@ -38,6 +38,15 @@ const PORTFOLIO = {
         "Engineering foundation, business lens",
         "Based in Chennai, India"
       ],
+      glance: {
+        summary: "Product manager and site reliability engineer who turns complex technical systems into products people can rely on — now sharpening the business lens through an MBA.",
+        highlights: [
+          { h: "4+ years in tech", t: "Across product management and site reliability engineering at Cognizant." },
+          { h: "Engineering foundation", t: "B.E. in Computer Science, with a builder's instinct for how systems really work." },
+          { h: "Business lens", t: "PGPM at Great Lakes Institute of Management — strategy, finance, and leadership." },
+          { h: "Based in Chennai", t: "Open to product and operations roles, in India and remote." }
+        ]
+      },
       blocks: [
         { type: "lead", text: "I'm Anish — a product manager and site reliability engineer who likes turning messy technical systems into products people can actually rely on." },
         { type: "para", text: "I began my career engineering reliability into mission-critical systems, then grew into product management, where I learned to translate technical depth into customer value. Understanding **how** systems work *and* **why** they matter to the business is what drives me." },
@@ -60,6 +69,15 @@ const PORTFOLIO = {
         "AWS · Terraform · Datadog · Split.io",
         "Full résumé available on request"
       ],
+      glance: {
+        summary: "A snapshot of roles, skills, and the impact behind them — built on a CS degree and a management education in progress.",
+        highlights: [
+          { h: "Associate Product Manager", t: "Defined features and ran A/B tests to ship an improved customer mobile web app." },
+          { h: "Site Reliability Engineer", t: "Owned production stability and led a next-gen platform migration." },
+          { h: "Core stack", t: "AWS · Terraform · Datadog · Splunk · PagerDuty · Split.io · incident.io." },
+          { h: "Full résumé (PDF)", t: "Available on request — email anishjoson@gmail.com." }
+        ]
+      },
       blocks: [
         { type: "lead", text: "Product manager and site reliability engineer with 4+ years of experience shipping reliable, customer-facing systems — backed by a computer science degree and a management education in progress." },
         { type: "timeline", entries: [
@@ -93,6 +111,15 @@ const PORTFOLIO = {
         "B.E. CSE — Sathyabama (CGPA 7.81)",
         "Certs: NPTEL · Coursera"
       ],
+      glance: {
+        summary: "A computer science degree, a management program in progress, and certifications along the way.",
+        highlights: [
+          { h: "PGPM — Great Lakes", t: "Post Graduate Program in Management, 2026–2027, Chennai." },
+          { h: "B.E. Computer Science", t: "Sathyabama Institute, 2017–2021, CGPA 7.81." },
+          { h: "Leadership", t: "Tech Lead at Google Developer Student Clubs — mentored 100+ members." },
+          { h: "Certifications", t: "App Development (NPTEL, IIT-Madras) and Leading Teams (Michigan, Coursera)." }
+        ]
+      },
       blocks: [
         { type: "timeline", entries: [
           { title: "Post Graduate Program in Management (PGPM)", org: "Great Lakes Institute of Management", when: "2026 – 2027", place: "Chennai, India", points: [
@@ -123,6 +150,15 @@ const PORTFOLIO = {
         "Site Reliability Engineer — Cognizant",
         "Jul 2021 – Present"
       ],
+      glance: {
+        summary: "Two roles at Cognizant — building products and keeping them reliable.",
+        highlights: [
+          { h: "Associate Product Manager", t: "Dec 2023–Present · feature definition, A/B testing on Split.io, cross-team delivery." },
+          { h: "Site Reliability Engineer", t: "2021–2023 · primary POC for an insurance app; led a legacy-to-next-gen migration." },
+          { h: "Reliability practice", t: "Runbooks, IaC with Terraform, incident processes via PagerDuty and incident.io." },
+          { h: "Observability", t: "Splunk and Sigma reporting; Datadog and Rollbar monitoring for low downtime." }
+        ]
+      },
       blocks: [
         { type: "timeline", entries: [
           { title: "Associate Product Manager", org: "Cognizant Technology Solutions", when: "Dec 2023 – Present", place: "Chennai, India", points: [
@@ -153,6 +189,15 @@ const PORTFOLIO = {
         "From on-call to roadmap",
         "What an MBA teaches an engineer"
       ],
+      glance: {
+        summary: "Short notes on product, reliability, and learning in business school. (Starter drafts — easy to swap for the real thing in data.js.)",
+        highlights: [
+          { h: "Reliability Is a Product Feature", t: "Why uptime and graceful failure belong on the roadmap, not just in ops." },
+          { h: "From On-Call to Roadmap", t: "What moving from SRE into product taught me about prioritization." },
+          { h: "What an MBA Teaches an Engineer", t: "Early reflections from the PGPM at Great Lakes." },
+          { h: "More coming soon", t: "These are placeholders — real posts and links land here next." }
+        ]
+      },
       blocks: [
         { type: "note", text: "These are starter drafts to show the space — swap in your real posts (and links) anytime by editing data.js." },
         { type: "cards", items: [
@@ -172,6 +217,15 @@ const PORTFOLIO = {
         "Legacy → next-gen migration",
         "College bus tracker app"
       ],
+      glance: {
+        summary: "A mix of product, reliability, and engineering work — from enterprise systems to student projects.",
+        highlights: [
+          { h: "Customer Mobile Web App Revamp", t: "Feature definition and A/B experiments via Split.io at Cognizant." },
+          { h: "Next-Gen Platform Migration", t: "Led the move off a legacy insurance system with minimal downtime." },
+          { h: "College Bus Tracking App", t: "Android app for real-time bus tracking (2019)." },
+          { h: "Razorpay Payment Gateway", t: "Payment integration built as a project intern at Fnplus Tech." }
+        ]
+      },
       blocks: [
         { type: "cards", items: [
           { title: "Customer Mobile Web App Revamp", meta: "Cognizant · Product", text: "Defined features and flows and ran A/B experiments via Split.io to ship an improved customer-facing mobile web experience." },
