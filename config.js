@@ -1,21 +1,20 @@
 /* ============================================================
-   Site configuration — the ONE file you edit (just once).
+   Site configuration.
    ------------------------------------------------------------
-   To manage blog posts from a Google Sheet without touching code:
+   Blog posts are Markdown files in the /posts folder of this repo.
+   To publish a post: add a .md file to /posts (drag-drop via
+   GitHub's "Add file ▸ Upload files", or commit it). The site
+   auto-discovers and renders it — no spreadsheet, no manifest.
 
-   1. Create a Google Sheet with a header row:
-        title | date | category | summary | link | published
-   2. File ▸ Share ▸ Publish to web ▸ choose the sheet ▸ format "CSV" ▸ Publish
-   3. Copy the published URL (looks like:
-        https://docs.google.com/spreadsheets/d/e/XXXX/pub?output=csv )
-   4. Paste it below as blogCsvUrl and save.
+   See SETUP-BLOG.md for the full guide and the front-matter format.
 
-   That's it. From then on, add/edit/delete rows in the sheet to
-   manage your posts — no code changes needed.
-
-   Leave blogCsvUrl empty to keep showing the built-in sample posts.
-   Full guide: SETUP-BLOG.md
+   You normally never need to touch the values below; they just tell
+   the site which repo/branch/folder to read posts from.
    ============================================================ */
 window.SITE_CONFIG = {
-  blogCsvUrl: ""
+  blog: {
+    repo: "anish-site/anish-site.github.io",
+    branch: "main",
+    folder: "posts"
+  }
 };
