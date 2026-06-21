@@ -141,12 +141,11 @@
           if (!posts || !posts.length) return; // keep built-in samples
           var html = posts.map(function (p) {
             var meta = [p.category, p.date].filter(Boolean).join(' · ');
-            var link = p.link
-              ? '<a class="c-link" href="' + p.link + '" target="_blank" rel="noopener">Read →</a>'
-              : '';
-            return '<div class="c-card"><h3>' + fmt(p.title) + '</h3>' +
+            return '<a class="c-card c-card-link" href="post.html?p=' + encodeURIComponent(p.slug) + '">' +
+              '<h3>' + fmt(p.title) + '</h3>' +
               (meta ? '<p class="c-meta">' + fmt(meta) + '</p>' : '') +
-              '<p class="c-text">' + fmt(p.summary) + '</p>' + link + '</div>';
+              '<p class="c-text">' + fmt(p.summary) + '</p>' +
+              '<span class="c-link">Read →</span></a>';
           }).join('');
           var container = document.querySelector('#detail-body .cards');
           if (container) container.innerHTML = html;
