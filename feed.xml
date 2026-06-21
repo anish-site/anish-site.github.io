@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Anish J — Thoughts</title>
+    <link>https://anish-site.github.io/</link>
+    <atom:link href="https://anish-site.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <description>Notes on product, reliability, and learning by Anish J.</description>
+    <language>en</language>
+    <lastBuildDate>Sun, 21 Jun 2026 16:01:25 GMT</lastBuildDate>
+    <item>
+      <title>What an MBA Teaches an Engineer</title>
+      <link>https://anish-site.github.io/post.html?p=what-an-mba-teaches-an-engineer</link>
+      <guid isPermaLink="true">https://anish-site.github.io/post.html?p=what-an-mba-teaches-an-engineer</guid>
+      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
+      <category>Learning</category>
+      <description>Early reflections from the PGPM at Great Lakes — finance, strategy, and the surprisingly hard skill of communicating simply.</description>
+    </item>
+    <item>
+      <title>Reliability Is a Product Feature</title>
+      <link>https://anish-site.github.io/post.html?p=reliability-is-a-product-feature</link>
+      <guid isPermaLink="true">https://anish-site.github.io/post.html?p=reliability-is-a-product-feature</guid>
+      <pubDate>Wed, 10 Jun 2026 00:00:00 GMT</pubDate>
+      <category>Product</category>
+      <description>Uptime, latency, and graceful failure aren&apos;t just engineering concerns — they shape how customers experience and trust a product.</description>
+    </item>
+    <item>
+      <title>From On-Call to Roadmap</title>
+      <link>https://anish-site.github.io/post.html?p=from-on-call-to-roadmap</link>
+      <guid isPermaLink="true">https://anish-site.github.io/post.html?p=from-on-call-to-roadmap</guid>
+      <pubDate>Fri, 22 May 2026 00:00:00 GMT</pubDate>
+      <category>Career</category>
+      <description>What moving from site reliability into product management taught me about empathy, prioritization, and saying no to the right things.</description>
+    </item>
+  </channel>
+</rss>
