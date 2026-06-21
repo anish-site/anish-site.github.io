@@ -51,9 +51,11 @@
     </div>
   </main>
 
+  <script src="config.js"></script>
   <script src="data.js"></script>
+  <script src="blog.js"></script>
   <script>
-    (function () {
+    (function (global) {
       var p = PORTFOLIO.profile;
       var S = PORTFOLIO.sections;
       var order = PORTFOLIO.order;
@@ -92,7 +94,24 @@
             '<span class="tile-hint">Hover to preview · click to open</span>' +
           '</a>';
       }).join('');
-    })();
+
+      // Pull live blog posts (if a sheet is configured) and refresh the
+      // Blog tile + glance so the home page reflects the latest thoughts.
+      if (global.BlogSource) {
+        global.BlogSource.fetchBlogs().then(function (posts) {
+          if (!posts || !posts.length) return;
+          var b = S.blog;
+          b.preview = posts.slice(0, 3).map(function (p) { return p.title; });
+          b.glance.summary = 'Latest thoughts, pulled live from my notes — ' +
+            posts.length + ' post' + (posts.length > 1 ? 's' : '') + ' and counting.';
+          b.glance.highlights = posts.slice(0, 4).map(function (p) {
+            var t = (p.summary || '').trim();
+            if (t.length > 120) t = t.slice(0, 117) + '…';
+            return { h: p.title, t: t || (p.category ? p.category : 'New post') };
+          });
+        });
+      }
+    })(window);
   </script>
   <script src="glance.js"></script>
 </body>

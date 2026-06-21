@@ -199,7 +199,7 @@ const PORTFOLIO = {
         ]
       },
       blocks: [
-        { type: "note", text: "These are starter drafts to show the space — swap in your real posts (and links) anytime by editing data.js." },
+        { type: "note", text: "Posts here are managed from a Google Sheet — add, edit, or delete rows and they update automatically (see SETUP-BLOG.md). Until a sheet is connected, the sample posts below are shown." },
         { type: "cards", items: [
           { title: "Reliability Is a Product Feature", meta: "Draft · Product", text: "Uptime, latency, and graceful failure aren't just engineering concerns — they shape how customers experience and trust a product. A look at bringing SRE thinking into the roadmap.", link: "#", linkText: "Read (coming soon)" },
           { title: "From On-Call to Roadmap", meta: "Draft · Career", text: "What moving from site reliability into product management taught me about empathy, prioritization, and saying no to the right things.", link: "#", linkText: "Read (coming soon)" },
