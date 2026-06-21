@@ -1,410 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anish J — MBA Portfolio</title>
-    <meta name="description" content="Professional MBA portfolio of Anish J — product management, site reliability engineering, and business leadership.">
-    <link rel="icon" type="image/png" href="loading-bar.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #0c0f12;
-            --bg-soft: #12171c;
-            --card: #161c22;
-            --card-hover: #1b232b;
-            --border: #232c35;
-            --text: #e8edf2;
-            --muted: #9aa7b4;
-            --accent: #2dd4bf;
-            --accent-2: #38bdf8;
-            --accent-soft: rgba(45, 212, 191, 0.12);
-            --shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
-            --radius: 16px;
-        }
-
-        * { box-sizing: border-box; }
-
-        html { scroll-behavior: smooth; }
-
-        body {
-            margin: 0;
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.65;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        a { color: var(--accent); text-decoration: none; transition: color .2s; }
-        a:hover { color: var(--accent-2); }
-
-        .wrap { width: 90%; max-width: 1060px; margin: 0 auto; }
-
-        h1, h2, h3 { font-family: 'Space Grotesk', 'Inter', sans-serif; line-height: 1.2; }
-
-        /* ---------- Nav ---------- */
-        header {
-            position: sticky; top: 0; z-index: 100;
-            background: rgba(12, 15, 18, 0.82);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-        }
-        .nav {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 16px 0;
-        }
-        .brand { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: .3px; }
-        .brand span { color: var(--accent); }
-        .nav ul { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; }
-        .nav a { color: var(--muted); font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: .6px; }
-        .nav a:hover { color: var(--text); }
-        .menu-btn { display: none; background: none; border: 0; color: var(--text); font-size: 24px; cursor: pointer; }
-
-        /* ---------- Hero ---------- */
-        .hero { padding: 90px 0 70px; position: relative; overflow: hidden; }
-        .hero::before {
-            content: ""; position: absolute; top: -160px; right: -120px;
-            width: 460px; height: 460px; border-radius: 50%;
-            background: radial-gradient(circle, var(--accent-soft), transparent 70%);
-            pointer-events: none;
-        }
-        .eyebrow {
-            display: inline-block; font-size: 13px; font-weight: 600; letter-spacing: 2px;
-            text-transform: uppercase; color: var(--accent);
-            padding: 6px 14px; border: 1px solid var(--border); border-radius: 999px;
-            background: var(--accent-soft); margin-bottom: 22px;
-        }
-        .hero h1 { font-size: clamp(2.4rem, 6vw, 4rem); margin: 0 0 16px; font-weight: 800; }
-        .hero h1 .grad {
-            background: linear-gradient(90deg, var(--accent), var(--accent-2));
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .hero .lead { font-size: clamp(1.05rem, 2.4vw, 1.3rem); color: var(--muted); max-width: 680px; margin: 0 0 32px; }
-        .cta { display: flex; flex-wrap: wrap; gap: 14px; }
-        .btn {
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 13px 24px; border-radius: 12px; font-weight: 600; font-size: 15px;
-            transition: transform .2s, box-shadow .2s, background .2s;
-        }
-        .btn-primary { background: linear-gradient(90deg, var(--accent), var(--accent-2)); color: #07221f; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(45, 212, 191, 0.3); color: #07221f; }
-        .btn-ghost { border: 1px solid var(--border); color: var(--text); background: var(--card); }
-        .btn-ghost:hover { transform: translateY(-2px); border-color: var(--accent); color: var(--text); }
-
-        .stats { display: flex; flex-wrap: wrap; gap: 40px; margin-top: 54px; }
-        .stat .num { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; font-weight: 700; color: var(--text); }
-        .stat .lbl { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
-
-        /* ---------- Sections ---------- */
-        section { padding: 64px 0; }
-        .section-head { margin-bottom: 40px; }
-        .section-head .kicker { color: var(--accent); font-weight: 600; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; }
-        .section-head h2 { font-size: clamp(1.7rem, 4vw, 2.4rem); margin: 8px 0 0; }
-
-        .about-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 32px; align-items: start; }
-        .about-grid p { color: var(--muted); margin-top: 0; }
-        .about-grid p strong { color: var(--text); }
-        .panel {
-            background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-            padding: 26px;
-        }
-        .panel h3 { margin: 0 0 16px; font-size: 1.05rem; }
-        .panel ul { list-style: none; margin: 0; padding: 0; }
-        .panel ul li { padding: 7px 0; color: var(--muted); font-size: 14px; display: flex; gap: 10px; }
-        .panel ul li::before { content: "▹"; color: var(--accent); }
-
-        /* ---------- Timeline ---------- */
-        .timeline { position: relative; }
-        .item {
-            background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
-            padding: 28px; margin-bottom: 22px; transition: transform .25s, border-color .25s, box-shadow .25s;
-        }
-        .item:hover { transform: translateY(-4px); border-color: var(--accent); box-shadow: var(--shadow); }
-        .item .top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: baseline; }
-        .item h3 { margin: 0; font-size: 1.25rem; }
-        .item .org { color: var(--accent); font-weight: 600; }
-        .item .when { color: var(--muted); font-size: 13.5px; white-space: nowrap; }
-        .item .place { color: var(--muted); font-size: 13.5px; margin: 2px 0 16px; }
-        .item ul { margin: 0; padding-left: 18px; }
-        .item ul li { color: var(--muted); padding: 5px 0; }
-        .item ul li::marker { color: var(--accent); }
-
-        .edit-note {
-            display: inline-block; font-size: 11.5px; font-weight: 600; letter-spacing: .5px;
-            color: var(--accent); background: var(--accent-soft); border: 1px dashed var(--accent);
-            padding: 3px 10px; border-radius: 999px; margin-left: 10px; text-transform: uppercase;
-        }
-
-        /* ---------- Skills ---------- */
-        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-        .skill-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: transform .25s, border-color .25s; }
-        .skill-card:hover { transform: translateY(-4px); border-color: var(--accent); }
-        .skill-card h3 { margin: 0 0 14px; font-size: 1.05rem; display: flex; align-items: center; gap: 10px; }
-        .skill-card h3 .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
-        .tags { display: flex; flex-wrap: wrap; gap: 8px; }
-        .tag { font-size: 13px; padding: 6px 12px; border-radius: 8px; background: var(--bg-soft); border: 1px solid var(--border); color: var(--text); }
-
-        /* ---------- Contact ---------- */
-        .contact { text-align: center; }
-        .contact .panel { max-width: 640px; margin: 0 auto; padding: 44px 30px; }
-        .contact p { color: var(--muted); max-width: 480px; margin: 0 auto 26px; }
-
-        footer { border-top: 1px solid var(--border); padding: 28px 0; text-align: center; color: var(--muted); font-size: 14px; }
-
-        @media (max-width: 760px) {
-            .about-grid { grid-template-columns: 1fr; }
-            .nav ul { display: none; }
-            .menu-btn { display: block; }
-            .nav ul.open {
-                display: flex; flex-direction: column; gap: 14px;
-                position: absolute; top: 64px; right: 5%; left: 5%;
-                background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px;
-            }
-            .stats { gap: 28px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anish J — Portfolio</title>
+  <meta name="description" content="Anish J — Product & Operations Leader, MBA candidate. Bio, résumé, education, jobs, projects and thoughts.">
+  <link rel="icon" type="image/png" href="loading-bar.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <header>
-        <div class="wrap nav">
-            <div class="brand">Anish<span>.</span>J</div>
-            <button class="menu-btn" aria-label="Toggle menu" onclick="document.getElementById('navlist').classList.toggle('open')">☰</button>
-            <ul id="navlist">
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+<body class="home">
+
+  <!-- Top bar with hover-preview tabs -->
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html">Anish<span class="dot">.</span>J</a>
+      <nav class="tabs" id="tabs"><!-- rendered by JS --></nav>
+      <div class="topbar-cta">
+        <a class="btn btn-ghost btn-sm linkedin-btn" href="https://www.linkedin.com/in/anish-j-" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn-primary btn-sm" href="mailto:anishjoson@gmail.com">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Single-view stage -->
+  <main class="stage">
+    <div class="wrap stage-grid">
+
+      <!-- Identity -->
+      <section class="identity">
+        <span class="eyebrow"><span class="pulse"></span> <span id="status"></span></span>
+        <h1>Hi, I'm <span class="grad" id="firstname"></span></h1>
+        <p class="role" id="role"></p>
+        <p class="tagline" id="tagline"></p>
+        <div class="meta">
+          <span>📍 <span id="location"></span></span>
+          <span>✉ <a id="emaillink" href="#"></a></span>
         </div>
-    </header>
-
-    <!-- HERO -->
-    <section class="hero">
-        <div class="wrap">
-            <span class="eyebrow">MBA Candidate · Product &amp; Operations Leader</span>
-            <h1>Hi, I'm Anish J<br><span class="grad">building products that scale.</span></h1>
-            <p class="lead">Product manager and site reliability engineer with a computer science foundation, now sharpening a business lens through an MBA. I turn complex technical systems into reliable, customer-focused products.</p>
-            <div class="cta">
-                <a class="btn btn-primary" href="#contact">Get in touch →</a>
-                <a class="btn btn-ghost" href="https://www.linkedin.com/in/anish-j-" target="_blank" rel="noopener">View LinkedIn</a>
-            </div>
-            <div class="stats">
-                <div class="stat"><div class="num">4+</div><div class="lbl">Years in Tech</div></div>
-                <div class="stat"><div class="num">PM + SRE</div><div class="lbl">Dual Expertise</div></div>
-                <div class="stat"><div class="num">100+</div><div class="lbl">Members Mentored</div></div>
-            </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="detail.html?s=bio">Explore portfolio →</a>
+          <a class="btn btn-ghost" href="detail.html?s=resume">View résumé</a>
         </div>
-    </section>
+      </section>
 
-    <!-- ABOUT -->
-    <section id="about">
-        <div class="wrap">
-            <div class="section-head">
-                <div class="kicker">About</div>
-                <h2>Where engineering meets business</h2>
-            </div>
-            <div class="about-grid">
-                <div>
-                    <p>I started my career engineering reliability into mission-critical systems and grew into product management, where I learned to translate technical depth into customer value. That blend — <strong>understanding how systems work and why they matter to the business</strong> — is what drives me.</p>
-                    <p>As an <strong>Associate Product Manager</strong>, I've defined features, run A/B experiments, and partnered with engineering and SRE teams to ship a better mobile web experience. Earlier, as a <strong>Site Reliability Engineer</strong>, I owned production stability, led a next-gen platform migration, and built the incident and observability practices behind it.</p>
-                    <p>Now, through my MBA, I'm formalizing the strategy, finance, and leadership skills to take products from idea to impact at scale.</p>
-                </div>
-                <div class="panel">
-                    <h3>At a glance</h3>
-                    <ul>
-                        <li>Product strategy &amp; roadmapping</li>
-                        <li>Reliability &amp; operational excellence</li>
-                        <li>Data-driven decision making</li>
-                        <li>Cross-functional leadership</li>
-                        <li>Based in Chennai, India</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+      <!-- Bento grid of tiles -->
+      <section class="bento" id="bento" aria-label="Portfolio sections"><!-- rendered by JS --></section>
 
-    <!-- EXPERIENCE -->
-    <section id="experience" style="background: var(--bg-soft);">
-        <div class="wrap">
-            <div class="section-head">
-                <div class="kicker">Experience</div>
-                <h2>Professional journey</h2>
-            </div>
-            <div class="timeline">
-                <div class="item">
-                    <div class="top">
-                        <div>
-                            <h3>Associate Product Manager</h3>
-                            <div class="org">Cognizant Technology Solutions</div>
-                        </div>
-                        <div class="when">Dec 2023 – Present</div>
-                    </div>
-                    <div class="place">Chennai, India</div>
-                    <ul>
-                        <li>Defined product feature specifications and flows using Lucidchart to roll out an improved customer mobile web app.</li>
-                        <li>Managed feature flags on Split.io to enable user-based A/B testing and controlled rollouts.</li>
-                        <li>Documented product flows on Confluence and delivered slide decks as part of product training.</li>
-                        <li>Collaborated with client engineering and SRE teams on production issues and bug-ticket prioritization.</li>
-                        <li>Drove bug-bash sessions to surface product and UI/UX enhancements.</li>
-                    </ul>
-                </div>
-                <div class="item">
-                    <div class="top">
-                        <div>
-                            <h3>Site Reliability Engineer</h3>
-                            <div class="org">Cognizant Technology Solutions</div>
-                        </div>
-                        <div class="when">Jul 2021 – Dec 2023</div>
-                    </div>
-                    <div class="place">Chennai, India</div>
-                    <ul>
-                        <li>Served as primary point of contact for an RSA insurance application handling policy and vehicle-coverage data, owning day-to-day issue resolution and customer/tech Jira tickets.</li>
-                        <li>Led the team's migration from a legacy system to a next-gen platform and facilitated knowledge transfer.</li>
-                        <li>Presented Splunk and Sigma reports to clients, proactively identifying issues and scalability adjustments from traffic patterns.</li>
-                        <li>Partnered with engineering teams to refine the migration process through impact analysis of business outcomes.</li>
-                        <li>Handled deployments on Harness with post-deployment monitoring via Datadog and Rollbar, targeting minimal downtime.</li>
-                        <li>Codified workflows as runbooks and playbooks, and defined incident processes and IaC using Terraform, PagerDuty, and incident.io.</li>
-                        <li>Conducted post-mortem analyses to close gaps and prevent incident recurrence.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
+  </main>
 
-    <!-- EDUCATION -->
-    <section id="education">
-        <div class="wrap">
-            <div class="section-head">
-                <div class="kicker">Education</div>
-                <h2>Academic background</h2>
-            </div>
-            <div class="timeline">
-                <div class="item">
-                    <div class="top">
-                        <div>
-                            <h3>Post Graduate Program in Management (PGPM)</h3>
-                            <div class="org">Great Lakes Institute of Management</div>
-                        </div>
-                        <div class="when">2026 – 2027</div>
-                    </div>
-                    <div class="place">Chennai, India</div>
-                    <ul>
-                        <li>Building core management capabilities across strategy, finance, marketing, and operations.</li>
-                        <li>Applying a product and operations background to data-driven business problem solving.</li>
-                        <li>Engaging in case-based learning, team projects, and leadership development.</li>
-                    </ul>
-                </div>
-                <div class="item">
-                    <div class="top">
-                        <div>
-                            <h3>B.E. Computer Science &amp; Engineering</h3>
-                            <div class="org">Sathyabama Institute of Science and Technology</div>
-                        </div>
-                        <div class="when">Aug 2017 – May 2021</div>
-                    </div>
-                    <div class="place">Chennai, India · CGPA: 7.81</div>
-                    <ul>
-                        <li>Tech Lead, Google Developer Student Clubs — mentored 100+ members on Android development and organized 10+ events (2019–2021).</li>
-                        <li>Co-hosted 5+ departmental contests for 200+ students.</li>
-                        <li>Selected for Google India–Partner Innovation alongside 30 students nationwide; submitted a project proposal to Swiggy.</li>
-                        <li>Collaborated with 15 MIT students in a 3-day workshop on assistive technology.</li>
-                        <li>Led development of an Android app for college bus tracking (2019) and built a Razorpay payment gateway as a project intern at Fnplus Tech.</li>
-                        <li>Certifications: App Development (NPTEL, IIT-Madras, 2017); Leading Teams (University of Michigan, Coursera, 2019).</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
+  <script src="data.js"></script>
+  <script>
+    (function () {
+      var p = PORTFOLIO.profile;
+      var S = PORTFOLIO.sections;
+      var order = PORTFOLIO.order;
 
-    <!-- SKILLS -->
-    <section id="skills" style="background: var(--bg-soft);">
-        <div class="wrap">
-            <div class="section-head">
-                <div class="kicker">Skills</div>
-                <h2>What I bring to the table</h2>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <h3><span class="dot"></span>Product &amp; Business</h3>
-                    <div class="tags">
-                        <span class="tag">Product Strategy</span>
-                        <span class="tag">Roadmapping</span>
-                        <span class="tag">A/B Testing</span>
-                        <span class="tag">Stakeholder Mgmt</span>
-                        <span class="tag">Feature Definition</span>
-                        <span class="tag">User Research</span>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h3><span class="dot"></span>Reliability &amp; Infra</h3>
-                    <div class="tags">
-                        <span class="tag">AWS</span>
-                        <span class="tag">Terraform</span>
-                        <span class="tag">Harness</span>
-                        <span class="tag">Datadog</span>
-                        <span class="tag">Splunk</span>
-                        <span class="tag">PagerDuty</span>
-                        <span class="tag">Rollbar</span>
-                        <span class="tag">incident.io</span>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h3><span class="dot"></span>Languages</h3>
-                    <div class="tags">
-                        <span class="tag">SQL</span>
-                        <span class="tag">C++</span>
-                        <span class="tag">Java</span>
-                        <span class="tag">YAML</span>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h3><span class="dot"></span>Collaboration &amp; Tools</h3>
-                    <div class="tags">
-                        <span class="tag">Jira / Confluence</span>
-                        <span class="tag">Lucidchart</span>
-                        <span class="tag">Sigma</span>
-                        <span class="tag">Split.io</span>
-                        <span class="tag">Postman</span>
-                        <span class="tag">Slack</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+      // Identity
+      document.getElementById('status').textContent = p.status;
+      document.getElementById('firstname').textContent = p.name.split(' ')[0];
+      document.getElementById('role').textContent = p.role;
+      document.getElementById('tagline').textContent = p.tagline;
+      document.getElementById('location').textContent = p.location;
+      var em = document.getElementById('emaillink');
+      em.textContent = p.email; em.href = 'mailto:' + p.email;
 
-    <!-- CONTACT -->
-    <section id="contact" class="contact">
-        <div class="wrap">
-            <div class="section-head" style="text-align:center;">
-                <div class="kicker">Contact</div>
-                <h2>Let's connect</h2>
-            </div>
-            <div class="panel">
-                <p>Open to conversations about product management, operations, and post-MBA opportunities. The fastest way to reach me is email or LinkedIn.</p>
-                <div class="cta" style="justify-content:center;">
-                    <a class="btn btn-primary" href="mailto:anishjoson@gmail.com">✉ Email me</a>
-                    <a class="btn btn-ghost" href="https://www.linkedin.com/in/anish-j-" target="_blank" rel="noopener">in LinkedIn</a>
-                </div>
-            </div>
-        </div>
-    </section>
+      // Tabs with hover flyout
+      var tabsEl = document.getElementById('tabs');
+      tabsEl.innerHTML = order.map(function (key) {
+        var s = S[key];
+        var bullets = s.preview.map(function (b) { return '<li>' + b + '</li>'; }).join('');
+        return '' +
+          '<div class="tab">' +
+            '<a href="detail.html?s=' + key + '"><span class="tab-ico">' + s.icon + '</span>' + s.label + '</a>' +
+            '<div class="flyout">' +
+              '<h4>' + s.label + '</h4>' +
+              '<p class="fly-tag">' + s.tagline + '</p>' +
+              '<ul>' + bullets + '</ul>' +
+              '<span class="fly-open">Open ' + s.label + ' →</span>' +
+            '</div>' +
+          '</div>';
+      }).join('');
 
-    <footer>
-        <div class="wrap">© <span id="year"></span> Anish J · Built with care.</div>
-    </footer>
-
-    <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-        // close mobile menu on link click
-        document.querySelectorAll('#navlist a').forEach(function (a) {
-            a.addEventListener('click', function () {
-                document.getElementById('navlist').classList.remove('open');
-            });
-        });
-    </script>
+      // Bento tiles
+      var bentoEl = document.getElementById('bento');
+      bentoEl.innerHTML = order.map(function (key) {
+        var s = S[key];
+        var bullets = s.preview.map(function (b) { return '<li>' + b + '</li>'; }).join('');
+        return '' +
+          '<a class="tile" href="detail.html?s=' + key + '" aria-label="Open ' + s.label + '">' +
+            '<span class="tile-arrow">↗</span>' +
+            '<span class="tile-ico">' + s.icon + '</span>' +
+            '<div>' +
+              '<h3>' + s.label + '</h3>' +
+              '<p class="tile-tag">' + s.tagline + '</p>' +
+            '</div>' +
+            '<div class="tile-reveal">' +
+              '<div class="rv-label">' + s.label + ' · at a glance</div>' +
+              '<ul>' + bullets + '</ul>' +
+              '<span class="rv-open">Open in detail →</span>' +
+            '</div>' +
+          '</a>';
+      }).join('');
+    })();
+  </script>
 </body>
 </html>
