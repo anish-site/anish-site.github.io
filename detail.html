@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anish J — Detail</title>
+  <meta name="description" content="Detailed view — Anish J portfolio.">
+  <link rel="icon" type="image/png" href="loading-bar.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="detail">
+
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html">Anish<span class="dot">.</span>J</a>
+      <nav class="tabs" id="tabs"><!-- rendered by JS --></nav>
+      <div class="topbar-cta">
+        <a class="btn btn-ghost btn-sm linkedin-btn" href="https://www.linkedin.com/in/anish-j-" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn-primary btn-sm" href="mailto:anishjoson@gmail.com">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="detail-head">
+      <a class="crumb" href="index.html">← Back to home</a>
+      <div class="d-ico" id="d-ico"></div>
+      <h1 id="d-title"></h1>
+      <p class="d-tagline" id="d-tagline"></p>
+      <nav class="section-nav" id="section-nav"><!-- rendered by JS --></nav>
+    </div>
+    <div class="detail-body" id="detail-body"><!-- rendered by JS --></div>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">© <span id="year"></span> Anish J · <a href="index.html">Home</a></div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script>
+    (function () {
+      var S = PORTFOLIO.sections;
+      var order = PORTFOLIO.order;
+
+      // ---- pick section from URL ----
+      var params = new URLSearchParams(window.location.search);
+      var key = params.get('s');
+      if (!key || !S[key]) key = order[0];
+      var sec = S[key];
+
+      document.title = 'Anish J — ' + sec.label;
+
+      // ---- tiny inline formatter: **bold**, *italic* ----
+      function fmt(t) {
+        return t
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\*(.+?)\*/g, '<em>$1</em>');
+      }
+
+      // ---- header ----
+      document.getElementById('d-ico').innerHTML = sec.icon;
+      document.getElementById('d-title').textContent = sec.label;
+      document.getElementById('d-tagline').textContent = sec.tagline;
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // ---- top tabs (with flyouts, same as home) ----
+      document.getElementById('tabs').innerHTML = order.map(function (k) {
+        var s = S[k];
+        var bullets = s.preview.map(function (b) { return '<li>' + b + '</li>'; }).join('');
+        var cls = (k === key) ? 'tab active' : 'tab';
+        return '' +
+          '<div class="' + cls + '">' +
+            '<a href="detail.html?s=' + k + '"><span class="tab-ico">' + s.icon + '</span>' + s.label + '</a>' +
+            '<div class="flyout"><h4>' + s.label + '</h4><p class="fly-tag">' + s.tagline + '</p>' +
+            '<ul>' + bullets + '</ul><span class="fly-open">Open ' + s.label + ' →</span></div>' +
+          '</div>';
+      }).join('');
+
+      // ---- section pills ----
+      document.getElementById('section-nav').innerHTML = order.map(function (k) {
+        var s = S[k];
+        var cls = (k === key) ? 'pill active' : 'pill';
+        return '<a class="' + cls + '" href="detail.html?s=' + k + '">' + s.icon + s.label + '</a>';
+      }).join('');
+
+      // ---- block renderers ----
+      function renderBlock(b) {
+        switch (b.type) {
+          case 'lead':
+            return '<div class="blk"><p class="blk-lead">' + fmt(b.text) + '</p></div>';
+          case 'para':
+            return '<div class="blk"><p class="blk-para">' + fmt(b.text) + '</p></div>';
+          case 'list':
+            return '<div class="blk"><ul class="blk-list">' +
+              b.items.map(function (i) { return '<li>' + fmt(i) + '</li>'; }).join('') + '</ul></div>';
+          case 'timeline':
+            return '<div class="blk"><div class="tl">' + b.entries.map(function (e) {
+              return '<div class="tl-item"><div class="tl-card">' +
+                '<div class="tl-top"><div><h3>' + fmt(e.title) + '</h3>' +
+                '<div class="tl-org">' + fmt(e.org) + '</div></div>' +
+                '<div class="tl-when">' + fmt(e.when) + '</div></div>' +
+                '<div class="tl-place">' + fmt(e.place) + '</div>' +
+                '<ul>' + e.points.map(function (p) { return '<li>' + fmt(p) + '</li>'; }).join('') + '</ul>' +
+                '</div></div>';
+            }).join('') + '</div></div>';
+          case 'tags':
+            return '<div class="blk"><div class="tag-groups">' + b.groups.map(function (g) {
+              return '<div class="tag-group"><h4><span class="gdot"></span>' + fmt(g.label) + '</h4>' +
+                '<div class="chips">' + g.items.map(function (i) { return '<span class="chip">' + fmt(i) + '</span>'; }).join('') +
+                '</div></div>';
+            }).join('') + '</div></div>';
+          case 'cards':
+            return '<div class="blk"><div class="cards">' + b.items.map(function (c) {
+              var link = c.link ? '<a class="c-link" href="' + c.link + '">' + (c.linkText || 'Read →') + '</a>' : '';
+              return '<div class="c-card"><h3>' + fmt(c.title) + '</h3>' +
+                (c.meta ? '<p class="c-meta">' + fmt(c.meta) + '</p>' : '') +
+                '<p class="c-text">' + fmt(c.text) + '</p>' + link + '</div>';
+            }).join('') + '</div></div>';
+          case 'note':
+            return '<div class="blk"><div class="note"><span class="note-i">✎</span><span>' + fmt(b.text) + '</span></div></div>';
+          default:
+            return '';
+        }
+      }
+
+      document.getElementById('detail-body').innerHTML = sec.blocks.map(renderBlock).join('');
+    })();
+  </script>
+</body>
+</html>
