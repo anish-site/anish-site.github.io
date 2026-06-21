@@ -1,85 +1,81 @@
-# Managing your Blog / Thoughts from a Google Sheet
+# Managing your Blog / Thoughts
 
-Your site can pull blog posts **live from a Google Sheet** — so you add, edit, or
-delete posts by editing a spreadsheet, never the code.
-
-Until you connect a sheet, the site shows the built-in sample posts. Nothing
-breaks if you skip this.
+Your blog posts are **Markdown files** in the [`/posts`](./posts) folder of this
+repo. The site reads that folder automatically (via the GitHub API) — so to
+publish, edit, or remove a post you just add, change, or delete a file. **No
+spreadsheet, no manifest, no code changes.**
 
 ---
 
-## One-time setup (about 3 minutes)
+## Writing a post
 
-### 1. Create the sheet
-Make a new Google Sheet. In **row 1**, add these column headers (lowercase,
-exactly as shown):
+A post is a plain `.md` file with a small **front-matter** header at the top:
 
-| title | date | category | summary | link | published |
-|-------|------|----------|---------|------|-----------|
+```markdown
+---
+title: Reliability Is a Product Feature
+date: 2026-06-10
+category: Product
+summary: A one-line teaser shown on the blog card.
+---
 
-- **title** – post title (required)
-- **date** – e.g. `2026-06-21` (used to sort newest-first; any parseable date works)
-- **category** – e.g. `Product`, `Career`, `Learning` (optional)
-- **summary** – a sentence or two shown on the card (optional but recommended)
-- **link** – full URL to the full post, if you have one (optional)
-- **published** – `TRUE` to show, `FALSE` to hide a draft. Leave blank = shown.
+# Reliability Is a Product Feature
 
-> Only `title` is strictly required. Extra columns are ignored, so you can keep
-> private notes in other columns.
-
-### 2. Add a few rows
-Example:
-
-| title | date | category | summary | link | published |
-|-------|------|----------|---------|------|-----------|
-| Reliability Is a Product Feature | 2026-06-10 | Product | Why uptime and graceful failure belong on the roadmap. | https://… | TRUE |
-| From On-Call to Roadmap | 2026-05-22 | Career | What moving from SRE into product taught me. | | TRUE |
-| A draft I'm still writing | 2026-06-20 | Learning | Not ready yet. | | FALSE |
-
-### 3. Publish the sheet as CSV
-In Google Sheets:
-
-1. **File ▸ Share ▸ Publish to web**
-2. In the dialog, pick the specific **sheet/tab** (not "Entire Document") and
-   choose the **CSV** format.
-3. Click **Publish** and confirm.
-4. Copy the URL it gives you. It looks like:
-   `https://docs.google.com/spreadsheets/d/e/2PACX-XXXXXXXX/pub?output=csv`
-
-### 4. Paste the URL into the site
-Open **`config.js`** and set:
-
-```js
-window.SITE_CONFIG = {
-  blogCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-XXXXXXXX/pub?output=csv"
-};
+Write your post here in **Markdown** — headings, **bold**, *italic*, lists,
+> blockquotes,
+links, images, `code`, tables… all supported.
 ```
 
-Commit that one change (or ask me to). **Done.**
+### Front-matter fields (all optional except, ideally, `title`)
+| field | purpose |
+|-------|---------|
+| `title` | Post title (if omitted, it's derived from the filename) |
+| `date` | `YYYY-MM-DD` — used to sort newest-first |
+| `category` | A short tag like `Product`, `Career`, `Learning` |
+| `summary` | One-line teaser for the card (if omitted, the first paragraph is used) |
+
+Everything below the closing `---` is the post body.
+
+### What editor should I use?
+Anything that saves `.md`. Comfortable, Word-like options:
+- **Obsidian**, **Typora**, **iA Writer** (desktop, WYSIWYG-ish)
+- **StackEdit** (stackedit.io — in-browser, nothing to install)
+- Even plain Notes / VS Code
+
+> Tip: the **filename becomes the URL**. `my-first-post.md` →
+> `post.html?p=my-first-post`. Use lowercase words separated by hyphens.
 
 ---
 
-## Daily use — no code, ever again
+## Publishing — three ways, no coding
 
-- **Add a post:** add a row.
-- **Edit a post:** change the cells.
-- **Delete a post:** delete the row (or set `published` to `FALSE` to hide it).
+**A. Drag-and-drop on GitHub (easiest)**
+1. Go to the [`posts`](./posts) folder on github.com.
+2. **Add file ▸ Upload files**, drop your `.md` in, and **Commit**.
+3. It appears on the site within a minute or two.
 
-Changes appear on the site within a minute or two (Google caches the published
-CSV briefly). The site sorts posts newest-first by `date` and shows the latest
-ones in the home-page "Blog" preview automatically.
+**B. Edit in the browser**
+- Open any file in `posts/`, click the ✏️ pencil, edit, commit. Same for
+  fixing typos in an existing post.
+
+**C. Just ask me**
+- Paste the post text in chat and I'll add the file for you.
+
+### Removing or hiding a post
+- **Delete** the `.md` file (via GitHub: open the file ▸ ⋯ ▸ Delete), **or**
+- keep it as a draft by renaming it to end in something the folder ignores —
+  simplest is to move it out of `posts/`.
 
 ---
 
-## Notes & troubleshooting
+## How it works (for the curious)
 
-- **It still shows samples:** check that `blogCsvUrl` is set in `config.js` and
-  that the sheet is **Published to web as CSV** (a normal "Share link" will not
-  work — it must be the *Publish to web* CSV URL).
-- **A post won't show:** make sure `published` isn't `FALSE` and the row has a
-  `title`.
-- **Wrong order:** posts sort by `date` (newest first); rows with unparseable or
-  missing dates sink to the bottom.
-- **Prefer a different source?** Any URL that returns the same CSV columns works
-  (Airtable CSV export, a `blogs.csv` file in this repo, etc.). Just point
-  `blogCsvUrl` at it.
+- The blog list and home preview call the GitHub contents API for `/posts`,
+  read each file's front-matter, and render cards newest-first.
+- Clicking a card opens `post.html?p=<filename>`, which fetches that one file and
+  renders the Markdown (via `marked` + `DOMPurify` for safety) in the site theme.
+- If the posts can't be loaded for any reason, the site shows a small set of
+  built-in sample cards so the page is never empty.
+
+You normally never touch `config.js`, but it's where the repo/branch/folder are
+set if you ever move things.

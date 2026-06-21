@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anish J — Post</title>
+  <link rel="icon" type="image/png" href="loading-bar.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="detail">
+
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="index.html">Anish<span class="dot">.</span>J</a>
+      <nav class="tabs" id="tabs"><!-- rendered by JS --></nav>
+      <div class="topbar-cta">
+        <a class="btn btn-ghost btn-sm linkedin-btn" href="https://www.linkedin.com/in/anish-j-" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn btn-primary btn-sm" href="mailto:anishjoson@gmail.com">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <article class="article" id="article">
+      <a class="crumb" href="detail.html?s=blog">← Back to Blog</a>
+      <div id="article-body">
+        <p class="blk-para" style="opacity:.7">Loading post…</p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">© <span id="year"></span> Anish J · <a href="detail.html?s=blog">All posts</a> · <a href="index.html">Home</a></div>
+  </footer>
+
+  <!-- Markdown rendering libs -->
+  <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3/dist/purify.min.js"></script>
+
+  <script src="config.js"></script>
+  <script src="data.js"></script>
+  <script src="blog.js"></script>
+  <script>
+    (function (global) {
+      var S = PORTFOLIO.sections, order = PORTFOLIO.order;
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // top tabs (Blog active)
+      document.getElementById('tabs').innerHTML = order.map(function (k) {
+        var s = S[k];
+        var cls = (k === 'blog') ? 'tab active' : 'tab';
+        return '<div class="' + cls + '"><a href="detail.html?s=' + k + '" data-glance="' + k + '">' +
+          '<span class="tab-ico">' + s.icon + '</span>' + s.label + '</a></div>';
+      }).join('');
+
+      var params = new URLSearchParams(window.location.search);
+      var slug = params.get('p') || '';
+      var bodyEl = document.getElementById('article-body');
+
+      function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+      if (!slug || !global.BlogSource) {
+        bodyEl.innerHTML = '<h1>Post not found</h1><p class="blk-para">No post was specified. <a href="detail.html?s=blog">Browse all posts →</a></p>';
+        return;
+      }
+
+      global.BlogSource.fetchPost(slug).then(function (post) {
+        document.title = 'Anish J — ' + post.title;
+        var meta = [post.category, post.date].filter(Boolean).join(' · ');
+        bodyEl.innerHTML =
+          '<header class="post-head">' +
+            (meta ? '<div class="post-meta">' + esc(meta) + '</div>' : '') +
+            '<h1 class="post-title">' + esc(post.title) + '</h1>' +
+          '</header>' +
+          '<div class="md-body">' + global.BlogSource.renderMarkdown(stripLeadingH1(post.body, post.title)) + '</div>' +
+          '<div class="post-foot"><a class="btn btn-ghost btn-sm" href="detail.html?s=blog">← All posts</a></div>';
+        // open external links in a new tab
+        bodyEl.querySelectorAll('.md-body a[href^="http"]').forEach(function (a) {
+          a.target = '_blank'; a.rel = 'noopener';
+        });
+      }).catch(function (err) {
+        bodyEl.innerHTML = '<h1>Post not found</h1><p class="blk-para">' + esc(err.message) +
+          '. <a href="detail.html?s=blog">Browse all posts →</a></p>';
+      });
+
+      // If the body repeats the title as an H1, drop it (we already show the title).
+      function stripLeadingH1(md, title) {
+        var lines = md.split('\n');
+        var i = 0;
+        while (i < lines.length && lines[i].trim() === '') i++;
+        if (i < lines.length && /^#\s+/.test(lines[i])) {
+          var h = lines[i].replace(/^#\s+/, '').trim();
+          if (h.toLowerCase() === String(title).toLowerCase()) {
+            lines.splice(i, 1);
+            return lines.join('\n');
+          }
+        }
+        return md;
+      }
+    })(window);
+  </script>
+  <script src="glance.js"></script>
+</body>
+</html>
