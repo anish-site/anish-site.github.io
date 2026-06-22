@@ -86,6 +86,8 @@
         switch (b.type) {
           case 'lead':
             return '<div class="blk"><p class="blk-lead">' + fmt(b.text) + '</p></div>';
+          case 'heading':
+            return '<div class="blk"><h2 class="blk-heading">' + fmt(b.text) + '</h2></div>';
           case 'para':
             return '<div class="blk"><p class="blk-para">' + fmt(b.text) + '</p></div>';
           case 'list':
