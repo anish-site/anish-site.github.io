@@ -19,7 +19,6 @@
   <header class="topbar">
     <div class="wrap topbar-inner">
       <a class="brand" href="index.html">Anish<span class="dot">.</span>J</a>
-      <nav class="tabs" id="tabs"><!-- rendered by JS --></nav>
       <div class="topbar-cta">
         <button class="theme-toggle" type="button" aria-label="Toggle theme">
           <span class="ic-moon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></span>
@@ -46,8 +45,7 @@
           <span>✉ <a id="emaillink" href="#"></a></span>
         </div>
         <div class="actions">
-          <a class="btn btn-primary" href="detail.html?s=bio">Explore portfolio →</a>
-          <a class="btn btn-ghost" href="detail.html?s=resume">View résumé</a>
+          <a class="btn btn-primary" href="detail.html?s=resume">View résumé →</a>
         </div>
       </section>
 
@@ -74,16 +72,6 @@
       document.getElementById('location').textContent = p.location;
       var em = document.getElementById('emaillink');
       em.textContent = p.email; em.href = 'mailto:' + p.email;
-
-      // Tabs with hover flyout
-      var tabsEl = document.getElementById('tabs');
-      tabsEl.innerHTML = order.map(function (key) {
-        var s = S[key];
-        return '' +
-          '<div class="tab">' +
-            '<a href="detail.html?s=' + key + '" data-glance="' + key + '"><span class="tab-ico">' + s.icon + '</span>' + s.label + '</a>' +
-          '</div>';
-      }).join('');
 
       // Bento tiles
       var bentoEl = document.getElementById('bento');
