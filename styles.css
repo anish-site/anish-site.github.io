@@ -266,6 +266,7 @@ body.detail { overflow-y: auto; }
 
 /* Content blocks */
 .blk { margin-bottom: 26px; }
+.blk-heading { font-size: 1.4rem; margin: 12px 0 4px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
 .blk-lead { font-size: 1.22rem; color: var(--text); line-height: 1.55; max-width: 760px; }
 .blk-para { color: var(--muted); max-width: 760px; }
 .blk-para strong { color: var(--text); }

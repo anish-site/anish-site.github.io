@@ -6,7 +6,7 @@
     <atom:link href="https://anish-site.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Notes on product, reliability, and learning by Anish J.</description>
     <language>en</language>
-    <lastBuildDate>Sun, 21 Jun 2026 16:02:58 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 22 Jun 2026 19:15:49 GMT</lastBuildDate>
     <item>
       <title>What an MBA Teaches an Engineer</title>
       <link>https://anish-site.github.io/post.html?p=what-an-mba-teaches-an-engineer</link>
@@ -24,12 +24,12 @@
       <description>Uptime, latency, and graceful failure aren&apos;t just engineering concerns — they shape how customers experience and trust a product.</description>
     </item>
     <item>
-      <title>From On-Call to Roadmap</title>
-      <link>https://anish-site.github.io/post.html?p=from-on-call-to-roadmap</link>
-      <guid isPermaLink="true">https://anish-site.github.io/post.html?p=from-on-call-to-roadmap</guid>
+      <title>From On-Call to the Shop Floor</title>
+      <link>https://anish-site.github.io/post.html?p=from-on-call-to-the-shop-floor</link>
+      <guid isPermaLink="true">https://anish-site.github.io/post.html?p=from-on-call-to-the-shop-floor</guid>
       <pubDate>Fri, 22 May 2026 00:00:00 GMT</pubDate>
       <category>Career</category>
-      <description>What moving from site reliability into product management taught me about empathy, prioritization, and saying no to the right things.</description>
+      <description>What moving from engineering into running a business taught me about customers, margins, and making the call.</description>
     </item>
   </channel>
 </rss>
