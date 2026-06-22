@@ -18,7 +18,6 @@
   <header class="topbar">
     <div class="wrap topbar-inner">
       <a class="brand" href="index.html">Anish<span class="dot">.</span>J</a>
-      <nav class="tabs" id="tabs"><!-- rendered by JS --></nav>
       <div class="topbar-cta">
         <button class="theme-toggle" type="button" aria-label="Toggle theme">
           <span class="ic-moon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></span>
@@ -74,16 +73,6 @@
       document.getElementById('d-title').textContent = sec.label;
       document.getElementById('d-tagline').textContent = sec.tagline;
       document.getElementById('year').textContent = new Date().getFullYear();
-
-      // ---- top tabs (with flyouts, same as home) ----
-      document.getElementById('tabs').innerHTML = order.map(function (k) {
-        var s = S[k];
-        var cls = (k === key) ? 'tab active' : 'tab';
-        return '' +
-          '<div class="' + cls + '">' +
-            '<a href="detail.html?s=' + k + '" data-glance="' + k + '"><span class="tab-ico">' + s.icon + '</span>' + s.label + '</a>' +
-          '</div>';
-      }).join('');
 
       // ---- section pills ----
       document.getElementById('section-nav').innerHTML = order.map(function (k) {
