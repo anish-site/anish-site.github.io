@@ -55,9 +55,7 @@
     </div>
   </main>
 
-  <script src="config.js"></script>
   <script src="data.js"></script>
-  <script src="blog.js"></script>
   <script>
     (function (global) {
       var p = PORTFOLIO.profile;
@@ -78,36 +76,18 @@
       bentoEl.innerHTML = order.map(function (key) {
         var s = S[key];
         return '' +
-          '<a class="tile" href="detail.html?s=' + key + '" data-glance="' + key + '" aria-label="Open ' + s.label + '">' +
+          '<a class="tile" href="detail.html?s=' + key + '" aria-label="Open ' + s.label + '">' +
             '<span class="tile-arrow">↗</span>' +
             '<span class="tile-ico">' + s.icon + '</span>' +
             '<div>' +
               '<h3>' + s.label + '</h3>' +
               '<p class="tile-tag">' + s.tagline + '</p>' +
             '</div>' +
-            '<span class="tile-hint">Hover to preview · click to open</span>' +
+            '<span class="tile-hint">Click to open →</span>' +
           '</a>';
       }).join('');
-
-      // Pull live blog posts (if a sheet is configured) and refresh the
-      // Blog tile + glance so the home page reflects the latest thoughts.
-      if (global.BlogSource) {
-        global.BlogSource.fetchBlogs().then(function (posts) {
-          if (!posts || !posts.length) return;
-          var b = S.blog;
-          b.preview = posts.slice(0, 3).map(function (p) { return p.title; });
-          b.glance.summary = 'Latest thoughts, pulled live from my notes — ' +
-            posts.length + ' post' + (posts.length > 1 ? 's' : '') + ' and counting.';
-          b.glance.highlights = posts.slice(0, 4).map(function (p) {
-            var t = (p.summary || '').trim();
-            if (t.length > 120) t = t.slice(0, 117) + '…';
-            return { h: p.title, t: t || (p.category ? p.category : 'New post') };
-          });
-        });
-      }
     })(window);
   </script>
-  <script src="glance.js"></script>
   <script src="theme.js"></script>
 </body>
 </html>
