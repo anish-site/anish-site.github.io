@@ -71,6 +71,16 @@ body {
 }
 .theme-toggle:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 .theme-toggle svg { width: 18px; height: 18px; }
+
+/* ---------------- Icon buttons (LinkedIn / GitHub / Mail) ---------------- */
+.icon-btn {
+  width: 38px; height: 38px; border-radius: 10px; flex: 0 0 auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--card); border: 1px solid var(--border); color: var(--text);
+  transition: border-color .2s, transform .2s, color .2s;
+}
+.icon-btn:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+.icon-btn svg { width: 18px; height: 18px; }
 .theme-toggle .ic-sun { display: none; }
 .theme-toggle .ic-moon { display: inline-flex; }
 :root[data-theme="light"] .theme-toggle .ic-sun { display: inline-flex; }
@@ -371,9 +381,7 @@ body.detail { overflow-y: auto; }
   .bento { max-height: none; height: auto; }
 }
 @media (max-width: 720px) {
-  .tabs { display: none; }
   .bento { grid-template-columns: repeat(2, 1fr); }
-  .topbar-cta .linkedin-btn { display: none; }
 }
 @media (max-width: 460px) {
   .bento { grid-template-columns: 1fr; }
