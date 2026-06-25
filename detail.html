@@ -33,9 +33,13 @@
   <main class="wrap">
     <div class="detail-head">
       <a class="crumb" href="index.html">← Back to home</a>
-      <div class="d-ico" id="d-ico"></div>
-      <h1 id="d-title"></h1>
-      <p class="d-tagline" id="d-tagline"></p>
+      <div class="d-titlerow">
+        <div class="d-ico" id="d-ico"></div>
+        <div>
+          <h1 id="d-title"></h1>
+          <p class="d-tagline" id="d-tagline"></p>
+        </div>
+      </div>
       <nav class="section-nav" id="section-nav"><!-- rendered by JS --></nav>
     </div>
     <div class="detail-body" id="detail-body"><!-- rendered by JS --></div>
@@ -112,10 +116,13 @@
             }).join('') + '</div></div>';
           case 'cards':
             return '<div class="blk"><div class="cards">' + b.items.map(function (c) {
-              var link = c.link ? '<a class="c-link" href="' + c.link + '">' + (c.linkText || 'Read →') + '</a>' : '';
-              return '<div class="c-card"><h3>' + fmt(c.title) + '</h3>' +
+              var ext = c.link && /^https?:/i.test(c.link);
+              var inner = '<h3>' + fmt(c.title) + '</h3>' +
                 (c.meta ? '<p class="c-meta">' + fmt(c.meta) + '</p>' : '') +
-                '<p class="c-text">' + fmt(c.text) + '</p>' + link + '</div>';
+                '<p class="c-text">' + fmt(c.text) + '</p>' +
+                (c.link ? '<span class="c-link">' + (c.linkText || (ext ? 'Open app ↗' : 'Read →')) + '</span>' : '');
+              if (ext) return '<a class="c-card c-card-link" href="' + c.link + '" target="_blank" rel="noopener">' + inner + '</a>';
+              return '<div class="c-card">' + inner + '</div>';
             }).join('') + '</div></div>';
           case 'note':
             return '<div class="blk"><div class="note"><span class="note-i">✎</span><span>' + fmt(b.text) + '</span></div></div>';
