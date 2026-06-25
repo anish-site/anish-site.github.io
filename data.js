@@ -10,7 +10,8 @@ const ICONS = {
   projects:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
   builds:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
   involvement: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-5 6-5s6 1.7 6 5"/><path d="M16 5.5a3 3 0 0 1 0 5.5"/><path d="M21 20c0-2.5-1.3-4-3.5-4.7"/></svg>',
-  blog:        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h8"/><path d="M8 13h5"/></svg>'
+  blog:        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h8"/><path d="M8 13h5"/></svg>',
+  etcetera:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5 13.8 11.3 12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 14l.6 1.6 1.6.6-1.6.6-.6 1.6-.6-1.6-1.6-.6 1.6-.6z"/></svg>'
 };
 
 const PORTFOLIO = {
@@ -26,7 +27,7 @@ const PORTFOLIO = {
   },
 
   // Order here controls tile + section order
-  order: ["experience", "education", "projects", "builds", "involvement", "blog"],
+  order: ["experience", "education", "projects", "builds", "involvement", "blog", "etcetera"],
 
   sections: {
 
@@ -122,6 +123,19 @@ const PORTFOLIO = {
           { title: "From On-Call to the Shop Floor", meta: "Draft · Career", text: "What moving from engineering into running a business taught me about customers, margins, and decisions.", link: "#", linkText: "Read (coming soon)" },
           { title: "What an MBA Teaches an Engineer", meta: "Draft · Learning", text: "Early reflections from the PGPM at Great Lakes — finance, strategy, and communicating simply.", link: "#", linkText: "Read (coming soon)" }
         ]}
+      ]
+    },
+
+    etcetera: {
+      label: "Et Cetera",
+      icon: ICONS.etcetera,
+      tagline: "Certifications, interests, and the rest.",
+      blocks: [
+        { type: "cards", items: [
+          { title: "App Development", meta: "NPTEL · IIT-Madras · 2017", text: "Certification covering the foundations of mobile application development." },
+          { title: "Leading Teams", meta: "University of Michigan · Coursera · 2019", text: "Certification on team leadership, motivation, and decision making." }
+        ]},
+        { type: "note", text: "More to come — interests, reading, and the things I do off the clock. (Tell me what to add here.)" }
       ]
     }
   }
