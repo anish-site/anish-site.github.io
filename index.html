@@ -74,7 +74,7 @@
       bentoEl.innerHTML = order.map(function (key) {
         var s = S[key];
         return '' +
-          '<a class="tile" href="detail.html?s=' + key + '" aria-label="Open ' + s.label + '">' +
+          '<a class="tile' + (key === 'builds' ? ' tile-builds' : '') + '" href="detail.html?s=' + key + '" aria-label="Open ' + s.label + '">' +
             '<span class="tile-arrow">↗</span>' +
             '<span class="tile-ico">' + s.icon + '</span>' +
             '<div>' +
