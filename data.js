@@ -68,6 +68,11 @@ const PORTFOLIO = {
             "Foundation in computer science, software engineering, and data structures.",
             "Active in technical community leadership and student development."
           ]}
+        ]},
+        { type: "heading", text: "Certifications" },
+        { type: "list", items: [
+          "App Development — NPTEL, IIT-Madras (2017)",
+          "Leading Teams — University of Michigan, Coursera (2019)"
         ]}
       ]
     },
@@ -89,18 +94,15 @@ const PORTFOLIO = {
     builds: {
       label: "Builds",
       icon: ICONS.builds,
-      tagline: "Products and apps I've built — plus certifications and the rest.",
+      tagline: "My top builds, highlighted — with the rest kept on record below.",
       blocks: [
+        { type: "lead", text: "The highlights first — my top builds. Everything else I've made is logged under Et Cetera so nothing's lost." },
         { type: "cards", items: [
           { title: "College Bus Tracking App", meta: "Android · 2019", text: "Led development of an Android application for real-time college bus tracking for students and staff." },
           { title: "Razorpay Payment Gateway", meta: "Fnplus Tech · Intern", text: "Implemented a payment gateway integration using the Razorpay API as a project intern." }
         ]},
         { type: "heading", text: "Et Cetera" },
-        { type: "cards", items: [
-          { title: "App Development", meta: "NPTEL · IIT-Madras · 2017", text: "Certification covering the foundations of mobile application development." },
-          { title: "Leading Teams", meta: "University of Michigan · Coursera · 2019", text: "Certification on team leadership, motivation, and decision making." }
-        ]},
-        { type: "note", text: "More to come — interests, reading, and the things I do off the clock. (Tell me what to add here.)" }
+        { type: "note", text: "A running record of every other project — smaller apps, experiments, and one-offs. (Send me the list and I'll log them all here.)" }
       ]
     },
 
