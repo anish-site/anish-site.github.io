@@ -84,6 +84,29 @@
             '<span class="tile-hint">Click to open →</span>' +
           '</a>';
       }).join('');
+
+      // Mild "magic": tiles lean toward the cursor, with a glow that follows it
+      var fine = !window.matchMedia || window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (fine) {
+        Array.prototype.forEach.call(bentoEl.querySelectorAll('.tile'), function (t) {
+          t.addEventListener('pointermove', function (e) {
+            var r = t.getBoundingClientRect();
+            var px = (e.clientX - r.left) / r.width;
+            var py = (e.clientY - r.top) / r.height;
+            t.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
+            t.style.setProperty('--my', (py * 100).toFixed(1) + '%');
+            if (!calm) {
+              t.style.setProperty('--ry', ((px - 0.5) * 6).toFixed(2) + 'deg');
+              t.style.setProperty('--rx', ((0.5 - py) * 6).toFixed(2) + 'deg');
+            }
+          });
+          t.addEventListener('pointerleave', function () {
+            t.style.setProperty('--rx', '0deg');
+            t.style.setProperty('--ry', '0deg');
+          });
+        });
+      }
     })(window);
   </script>
   <script src="theme.js"></script>
