@@ -108,6 +108,25 @@
                 '<ul>' + e.points.map(function (p) { return '<li>' + fmt(p) + '</li>'; }).join('') + '</ul>' +
                 '</div></div>';
             }).join('') + '</div></div>';
+          case 'explist':
+            return '<div class="blk"><div class="exp">' + b.entries.map(function (e) {
+              return '<details class="exp-item"><summary class="exp-head">' +
+                '<span class="exp-id">' +
+                  '<span class="exp-role">' + fmt(e.title) + '</span>' +
+                  '<span class="exp-org">' + fmt(e.org) + '</span>' +
+                  '<span class="exp-place">' + fmt(e.place) + '</span>' +
+                '</span>' +
+                '<span class="exp-right">' +
+                  '<span class="exp-when">' + fmt(e.when) + '</span>' +
+                  '<span class="exp-chev" aria-hidden="true">⌄</span>' +
+                '</span>' +
+                '</summary><div class="exp-body">' +
+                '<ul>' + e.points.map(function (p) { return '<li>' + fmt(p) + '</li>'; }).join('') + '</ul>' +
+                (e.skills ? '<div class="chips exp-skills">' +
+                  e.skills.map(function (s) { return '<span class="chip">' + fmt(s) + '</span>'; }).join('') +
+                '</div>' : '') +
+                '</div></details>';
+            }).join('') + '</div></div>';
           case 'tags':
             return '<div class="blk"><div class="tag-groups">' + b.groups.map(function (g) {
               return '<div class="tag-group"><h4><span class="gdot"></span>' + fmt(g.label) + '</h4>' +
