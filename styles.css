@@ -229,8 +229,19 @@ body.home { overflow: hidden; }
   padding: 20px; display: flex; flex-direction: column; justify-content: space-between;
   cursor: pointer; text-align: left; color: inherit;
   transition: transform .25s, border-color .25s, box-shadow .25s, background .25s;
+  /* --rx/--ry/--mx/--my are driven by the cursor (see index.html) */
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--ty, 0px));
 }
-.tile:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: var(--shadow); background: var(--card-2); }
+.tile:hover { --ty: -5px; border-color: var(--accent); box-shadow: var(--shadow); background: var(--card-2); }
+
+/* Soft glow that follows the cursor across the tile */
+.tile::after {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  opacity: 0; transition: opacity .3s;
+  background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), var(--accent-soft), transparent 62%);
+}
+.tile:hover::after { opacity: 1; }
+.tile > * { position: relative; z-index: 1; }
 .tile:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .tile-ico {
   width: 42px; height: 42px; border-radius: 11px; display: inline-flex; align-items: center; justify-content: center;
@@ -264,6 +275,7 @@ body.home { overflow: hidden; }
 .tile-builds .tile-hint { color: #c4b5fd; }
 .tile-builds:hover { border-color: rgba(167, 139, 250, 0.9); }
 .tile-builds:hover::before { animation-duration: 4.5s; opacity: .85; }
+.tile-builds::after { background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(167, 139, 250, 0.22), transparent 62%); }
 @keyframes builds-swirl { to { transform: rotate(1turn); } }
 @media (prefers-reduced-motion: reduce) { .tile-builds::before { animation: none; } }
 
@@ -323,6 +335,42 @@ body.detail { overflow-y: auto; }
 .tl-card ul { margin: 0; padding-left: 18px; }
 .tl-card ul li { color: var(--muted); padding: 4px 0; }
 .tl-card ul li::marker { color: var(--accent); }
+
+/* Experience — compact role cards that open on click */
+.exp { display: grid; gap: 12px; max-width: 900px; }
+.exp-item {
+  background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden; transition: border-color .2s, background .2s, box-shadow .2s;
+}
+.exp-item:hover { border-color: var(--accent); }
+.exp-item[open] { border-color: var(--accent); background: var(--card-2); box-shadow: var(--shadow); }
+.exp-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 18px 20px; cursor: pointer; list-style: none;
+}
+.exp-head::-webkit-details-marker { display: none; }
+.exp-head::marker { content: ""; }
+.exp-head:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.exp-id { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.exp-role { font-family: 'Space Grotesk', Inter, system-ui, sans-serif; font-weight: 600; font-size: 1.12rem; }
+.exp-org { color: var(--accent); font-weight: 600; font-size: .95rem; }
+.exp-place { color: var(--faint); font-size: 12.5px; }
+.exp-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.exp-when { color: var(--muted); font-size: 13px; white-space: nowrap; }
+.exp-chev { color: var(--faint); font-size: 20px; line-height: 1; transition: transform .25s, color .25s; }
+.exp-head:hover .exp-chev { color: var(--accent); }
+.exp-item[open] .exp-chev { transform: rotate(180deg); color: var(--accent); }
+.exp-body { padding: 2px 20px 18px; border-top: 1px solid var(--border); animation: exp-in .25s ease-out; }
+.exp-body ul { margin: 14px 0 0; padding-left: 18px; }
+.exp-body ul li { color: var(--muted); padding: 4px 0; }
+.exp-body ul li::marker { color: var(--accent); }
+.exp-skills { margin-top: 16px; }
+@keyframes exp-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .exp-body { animation: none; } }
+@media (max-width: 560px) {
+  .exp-head { flex-wrap: wrap; gap: 8px; }
+  .exp-right { width: 100%; justify-content: space-between; }
+}
 
 /* Tag groups */
 .tag-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; }
