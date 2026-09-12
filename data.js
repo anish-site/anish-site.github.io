@@ -63,14 +63,15 @@ const PORTFOLIO = {
             "Applying business and engineering experience to data-driven decision making."
           ]},
           { title: "B.E. Computer Science & Engineering", org: "Sathyabama Institute of Science and Technology", when: "Aug 2017 – May 2021", place: "Chennai, India", points: [
-            "Foundation in computer science, software engineering, and data structures.",
-            "Active in technical community leadership and student development."
+            "Mentored as Tech Lead (Google Developer Student Clubs — Sathyabama IST) on Android development for 100+ members, and guided the team to organise and conduct 10+ events (June 2019 – April 2021).",
+            "Managed and co-hosted 5+ contests for the department for over 200 students.",
+            "Wrote columns for the department magazine (June – July 2018).",
+            "Attended Google India–Partner Innovation along with 30 other students across India, and submitted a project proposal to Swiggy.",
+            "Collaborated with 15 MIT (Massachusetts) students in a 3-day workshop on assistive technology.",
+            "Led the team for development of an Android application for tracking college bus (2019).",
+            "Completed certification on App Development from IIT-Madras (2017, NPTEL) and on Leading Teams from University of Michigan (2019, Coursera).",
+            "Implemented the payment gateway as a project intern for Fnplus Tech using the Razorpay API."
           ]}
-        ]},
-        { type: "heading", text: "Certifications" },
-        { type: "list", items: [
-          "App Development — NPTEL, IIT-Madras (2017)",
-          "Leading Teams — University of Michigan, Coursera (2019)"
         ]}
       ]
     },
