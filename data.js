@@ -81,10 +81,12 @@ const PORTFOLIO = {
       icon: ICONS.builds,
       tagline: "Top builds, plus the business and reliability projects I've led.",
       blocks: [
-        { type: "lead", text: "The highlights first — my top builds. Everything else I've made is logged under Et Cetera so nothing's lost." },
+        { type: "lead", text: "The highlights first — apps I've built and shipped. Click any card to open the live app. Everything else I've made is logged under Et Cetera so nothing's lost." },
         { type: "cards", items: [
-          { title: "College Bus Tracking App", meta: "Android · 2019", text: "Led development of an Android application for real-time college bus tracking for students and staff." },
-          { title: "Razorpay Payment Gateway", meta: "Fnplus Tech · Intern", text: "Implemented a payment gateway integration using the Razorpay API as a project intern." }
+          { title: "QuickTimes", meta: "News digest · Live app", text: "Keeps you up to date with the day's news from your favourite newspaper, for the days you don't have time to read it.", link: "https://quicktimes.lovable.app/" },
+          { title: "DreamJar", meta: "Dream journal · Live app", text: "Log your creative dreams before they fade — and track sleep quality based on whether a dream showed up at all.", link: "https://dreamjar.lovable.app/" },
+          { title: "Cold Call Me", meta: "Portfolio builder · Live app", text: "A one-stop, MBA-specific portfolio builder for non-tech folks who need a presence without writing any code.", link: "https://cold-call-me.vercel.app/" },
+          { title: "Chennai Compass", meta: "City guide · Live app", text: "A personal guide to Chennai for students arriving from other parts of the world.", link: "https://chennai-compass.vercel.app/" }
         ]},
         { type: "heading", text: "Projects" },
         { type: "cards", items: [
@@ -94,7 +96,11 @@ const PORTFOLIO = {
           { title: "Incident Management Standardization", meta: "Cognizant · Reliability", text: "Standardized incident processes and SRE best practices, improving business uptime from 98.5% to 99.82%." }
         ]},
         { type: "heading", text: "Et Cetera" },
-        { type: "note", text: "A running record of every other project — smaller apps, experiments, and one-offs. (Send me the list and I'll log them all here.)" }
+        { type: "cards", items: [
+          { title: "College Bus Tracking App", meta: "Android · 2019", text: "Led development of an Android application for real-time college bus tracking for students and staff." },
+          { title: "Razorpay Payment Gateway", meta: "Fnplus Tech · Intern", text: "Implemented a payment gateway integration using the Razorpay API as a project intern." }
+        ]},
+        { type: "note", text: "A running record of everything else — smaller apps, experiments, and one-offs. (Send me more and I'll log them here.)" }
       ]
     },
 
