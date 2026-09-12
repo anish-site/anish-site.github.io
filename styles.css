@@ -396,6 +396,7 @@ body.detail { overflow-y: auto; }
 /* Clickable post cards (blog list) */
 .c-card-link { text-decoration: none; color: inherit; }
 .c-card-link:hover { color: inherit; }
+.c-card-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .c-card-link .c-link { margin-top: auto; }
 
 /* ---------------- Article / reader page ---------------- */
