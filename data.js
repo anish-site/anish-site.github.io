@@ -82,21 +82,21 @@ const PORTFOLIO = {
       tagline: "Top builds, plus the business and reliability projects I've led.",
       blocks: [
         { type: "lead", text: "The highlights first — apps I've built and shipped. Click any card to open the live app. Everything else I've made is logged under Et Cetera so nothing's lost." },
-        { type: "cards", items: [
+        { type: "cards", group: "highlight", items: [
           { title: "QuickTimes", meta: "News digest · Live app", text: "Keeps you up to date with the day's news from your favourite newspaper, for the days you don't have time to read it.", link: "https://quicktimes.lovable.app/" },
           { title: "DreamJar", meta: "Dream journal · Live app", text: "Log your creative dreams before they fade — and track sleep quality based on whether a dream showed up at all.", link: "https://dreamjar.lovable.app/" },
           { title: "Cold Call Me", meta: "Portfolio builder · Live app", text: "A one-stop, MBA-specific portfolio builder for non-tech folks who need a presence without writing any code.", link: "https://cold-call-me.vercel.app/" },
           { title: "Chennai Compass", meta: "City guide · Live app", text: "A personal guide to Chennai for students arriving from other parts of the world.", link: "https://chennai-compass.vercel.app/" }
         ]},
         { type: "heading", text: "Projects" },
-        { type: "cards", items: [
+        { type: "cards", group: "project", items: [
           { title: "Revenue Growth Initiative", meta: "Kolathur Thanga Maligai · Business", text: "Owned pre- and post-sales management and seasonal campaigns that drove a 45% increase in revenue and an improved customer experience." },
           { title: "Operational Efficiency Program", meta: "Kolathur Thanga Maligai · Operations", text: "Optimized inventory and procurement and managed vendor relations and stock reconciliation for a 25% efficiency gain." },
           { title: "Customer Retention & Campaigns", meta: "Kolathur Thanga Maligai · Marketing", text: "Marketing initiatives, seasonal campaigns, and personalized service lifted customer retention from ~45% to ~70%." },
           { title: "Incident Management Standardization", meta: "Cognizant · Reliability", text: "Standardized incident processes and SRE best practices, improving business uptime from 98.5% to 99.82%." }
         ]},
         { type: "heading", text: "Et Cetera" },
-        { type: "cards", items: [
+        { type: "cards", group: "etcetera", items: [
           { title: "College Bus Tracking App", meta: "Android · 2019", text: "Led development of an Android application for real-time college bus tracking for students and staff." },
           { title: "Razorpay Payment Gateway", meta: "Fnplus Tech · Intern", text: "Implemented a payment gateway integration using the Razorpay API as a project intern." }
         ]},
