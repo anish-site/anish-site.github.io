@@ -93,24 +93,47 @@
       });
   }
 
-  function fetchBuilds() {
+  function group(cards) {
+    var grouped = { highlight: [], project: [], etcetera: [] };
+    cards.filter(Boolean).forEach(function (c) {
+      (grouped[c.group] || grouped.highlight).push(c);
+    });
+    GROUPS.forEach(function (g) { grouped[g].sort(byOrderThenTitle); });
+    return grouped;
+  }
+
+  // Preferred: the manifest served from this site's own origin. One request,
+  // no rate limit, and it works when the repo is private.
+  function fromManifest() {
+    return fetch(FOLDER + '/index.json', { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('manifest ' + r.status); return r.json(); })
+      .then(function (j) {
+        var cards = (j && j.cards) || [];
+        if (!cards.length) throw new Error('manifest empty');
+        return group(cards);
+      });
+  }
+
+  // Fallback: read the folder straight off GitHub (public repos only).
+  function fromGitHub() {
     return listFiles().then(function (files) {
-      if (!files.length) return null;
+      if (!files.length) throw new Error('no files');
       return Promise.all(files.map(function (f) {
         return fetch(f.download_url || rawUrl(f.path), { cache: 'no-store' })
           .then(function (r) { return r.ok ? r.text() : ''; })
           .then(function (text) { return text ? normalize(slugFromName(f.name), text) : null; })
           .catch(function () { return null; });
-      })).then(function (cards) {
-        var grouped = { highlight: [], project: [], etcetera: [] };
-        cards.filter(Boolean).forEach(function (c) { grouped[c.group].push(c); });
-        GROUPS.forEach(function (g) { grouped[g].sort(byOrderThenTitle); });
-        return grouped;
-      });
-    }).catch(function (err) {
-      if (global.console) console.warn('[builds] listing failed, using fallback:', err.message);
-      return null;
+      })).then(group);
     });
+  }
+
+  function fetchBuilds() {
+    return fromManifest()
+      .catch(function () { return fromGitHub(); })
+      .catch(function (err) {
+        if (global.console) console.warn('[builds] listing failed, using fallback:', err.message);
+        return null;
+      });
   }
 
   global.BuildsSource = { fetchBuilds: fetchBuilds };
