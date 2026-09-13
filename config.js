@@ -16,5 +16,13 @@ window.SITE_CONFIG = {
     repo: "anish-site/anish-site.github.io",
     branch: "main",
     folder: "posts"
+  },
+  // Builds & Projects cards are Markdown files in /builds — one file per
+  // card. Add a file to add a card, delete it to remove it. See
+  // SETUP-BUILDS.md for the front-matter format.
+  builds: {
+    repo: "anish-site/anish-site.github.io",
+    branch: "main",
+    folder: "builds"
   }
 };

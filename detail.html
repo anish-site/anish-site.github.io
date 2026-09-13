@@ -52,6 +52,7 @@
   <script src="config.js"></script>
   <script src="data.js"></script>
   <script src="blog.js"></script>
+  <script src="builds.js"></script>
   <script>
     (function (global) {
       var S = PORTFOLIO.sections;
@@ -85,6 +86,18 @@
         var cls = (k === key) ? 'pill active' : 'pill';
         return '<a class="' + cls + '" href="detail.html?s=' + k + '">' + s.icon + s.label + '</a>';
       }).join('');
+
+      // ---- shared card markup (used by the static blocks and the live loader) ----
+      function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+      function cardHtml(c) {
+        var ext = c.link && /^https?:/i.test(c.link);
+        var inner = '<h3>' + fmt(c.title) + '</h3>' +
+          (c.meta ? '<p class="c-meta">' + fmt(c.meta) + '</p>' : '') +
+          '<p class="c-text">' + fmt(c.text) + '</p>' +
+          (c.link ? '<span class="c-link">' + (c.linkText || (ext ? 'Open app ↗' : 'Read →')) + '</span>' : '');
+        if (ext) return '<a class="c-card c-card-link" href="' + esc(c.link) + '" target="_blank" rel="noopener">' + inner + '</a>';
+        return '<div class="c-card">' + inner + '</div>';
+      }
 
       // ---- block renderers ----
       function renderBlock(b) {
@@ -134,15 +147,9 @@
                 '</div></div>';
             }).join('') + '</div></div>';
           case 'cards':
-            return '<div class="blk"><div class="cards">' + b.items.map(function (c) {
-              var ext = c.link && /^https?:/i.test(c.link);
-              var inner = '<h3>' + fmt(c.title) + '</h3>' +
-                (c.meta ? '<p class="c-meta">' + fmt(c.meta) + '</p>' : '') +
-                '<p class="c-text">' + fmt(c.text) + '</p>' +
-                (c.link ? '<span class="c-link">' + (c.linkText || (ext ? 'Open app ↗' : 'Read →')) + '</span>' : '');
-              if (ext) return '<a class="c-card c-card-link" href="' + c.link + '" target="_blank" rel="noopener">' + inner + '</a>';
-              return '<div class="c-card">' + inner + '</div>';
-            }).join('') + '</div></div>';
+            return '<div class="blk"><div class="cards"' +
+              (b.group ? ' data-group="' + esc(b.group) + '"' : '') + '>' +
+              b.items.map(cardHtml).join('') + '</div></div>';
           case 'note':
             return '<div class="blk"><div class="note"><span class="note-i">✎</span><span>' + fmt(b.text) + '</span></div></div>';
           default:
@@ -152,8 +159,20 @@
 
       document.getElementById('detail-body').innerHTML = sec.blocks.map(renderBlock).join('');
 
+      // ---- Builds: load live cards from /builds Markdown (falls back to data.js) ----
+      if (key === 'builds' && global.BuildsSource) {
+        global.BuildsSource.fetchBuilds().then(function (groups) {
+          if (!groups) return; // listing failed — keep the built-in cards
+          Object.keys(groups).forEach(function (g) {
+            var items = groups[g];
+            if (!items || !items.length) return; // empty group keeps its fallback
+            var el = document.querySelector('#detail-body .cards[data-group="' + g + '"]');
+            if (el) el.innerHTML = items.map(cardHtml).join('');
+          });
+        });
+      }
+
       // ---- Blog: load live posts from /posts Markdown (falls back to samples) ----
-      function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
       if (key === 'blog' && global.BlogSource) {
         var cardsEl = document.querySelector('#detail-body .cards');
         if (cardsEl) {
