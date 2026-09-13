@@ -83,9 +83,26 @@
       });
   }
 
-  function fetchBlogs() {
+  // A static host can answer a missing file with an HTML 404 page; don't
+  // mistake that for Markdown.
+  function looksLikeHtml(t) { return /^\s*<(?:!doctype|html)\b/i.test(t); }
+
+  // Preferred: the manifest served from this site's own origin. One request,
+  // no rate limit, and it works when the repo is private.
+  function fromManifest() {
+    return fetch(FOLDER + '/index.json', { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('manifest ' + r.status); return r.json(); })
+      .then(function (j) {
+        var posts = (j && j.posts) || [];
+        if (!posts.length) throw new Error('manifest empty');
+        return posts.slice().sort(sortByDateDesc);
+      });
+  }
+
+  // Fallback: read the folder straight off GitHub (public repos only).
+  function fromGitHub() {
     return listFiles().then(function (files) {
-      if (!files.length) return [];
+      if (!files.length) throw new Error('no files');
       return Promise.all(files.map(function (f) {
         return fetch(f.download_url || rawUrl(f.path), { cache: 'no-store' })
           .then(function (r) { return r.ok ? r.text() : ''; })
@@ -96,16 +113,32 @@
         posts.sort(sortByDateDesc);
         return posts;
       });
-    }).catch(function (err) {
-      if (global.console) console.warn('[blog] listing failed, using fallback:', err.message);
-      return null;
     });
+  }
+
+  function fetchBlogs() {
+    return fromManifest()
+      .catch(function () { return fromGitHub(); })
+      .catch(function (err) {
+        if (global.console) console.warn('[blog] listing failed, using fallback:', err.message);
+        return null;
+      });
   }
 
   function fetchPost(slug) {
     var safe = String(slug).replace(/[^a-z0-9._-]/gi, '');
-    return fetch(rawUrl(FOLDER + '/' + safe + '.md'), { cache: 'no-store' })
-      .then(function (r) { if (!r.ok) throw new Error('Post not found (' + r.status + ')'); return r.text(); })
+    var file = FOLDER + '/' + safe + '.md';
+    // Same-origin first (works with a private repo), then GitHub raw.
+    return fetch(file, { cache: 'no-store' })
+      .then(function (r) { if (!r.ok) throw new Error('local ' + r.status); return r.text(); })
+      .then(function (text) {
+        if (!text || looksLikeHtml(text)) throw new Error('not markdown');
+        return text;
+      })
+      .catch(function () {
+        return fetch(rawUrl(file), { cache: 'no-store' })
+          .then(function (r) { if (!r.ok) throw new Error('Post not found (' + r.status + ')'); return r.text(); });
+      })
       .then(function (text) { return normalize(safe, text); });
   }
 

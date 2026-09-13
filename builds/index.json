@@ -1,0 +1,105 @@
+{
+  "generated": "2026-09-13T07:36:54.686Z",
+  "cards": [
+    {
+      "slug": "college-bus-tracking-app",
+      "title": "College Bus Tracking App",
+      "meta": "Android · 2019",
+      "link": "",
+      "linkText": "",
+      "group": "etcetera",
+      "order": 1,
+      "text": "Led development of an Android application for real-time college bus tracking for students and staff."
+    },
+    {
+      "slug": "quicktimes",
+      "title": "QuickTimes",
+      "meta": "News digest · Live app",
+      "link": "https://quicktimes.lovable.app/",
+      "linkText": "",
+      "group": "highlight",
+      "order": 1,
+      "text": "Keeps you up to date with the day's news from your favourite newspaper, for the days you don't have time to read it."
+    },
+    {
+      "slug": "revenue-growth-initiative",
+      "title": "Revenue Growth Initiative",
+      "meta": "Kolathur Thanga Maligai · Business",
+      "link": "",
+      "linkText": "",
+      "group": "project",
+      "order": 1,
+      "text": "Owned pre- and post-sales management and seasonal campaigns that drove a 45% increase in revenue and an improved customer experience."
+    },
+    {
+      "slug": "dreamjar",
+      "title": "DreamJar",
+      "meta": "Dream journal · Live app",
+      "link": "https://dreamjar.lovable.app/",
+      "linkText": "",
+      "group": "highlight",
+      "order": 2,
+      "text": "Log your creative dreams before they fade — and track sleep quality based on whether a dream showed up at all."
+    },
+    {
+      "slug": "operational-efficiency-program",
+      "title": "Operational Efficiency Program",
+      "meta": "Kolathur Thanga Maligai · Operations",
+      "link": "",
+      "linkText": "",
+      "group": "project",
+      "order": 2,
+      "text": "Optimized inventory and procurement and managed vendor relations and stock reconciliation for a 25% efficiency gain."
+    },
+    {
+      "slug": "razorpay-payment-gateway",
+      "title": "Razorpay Payment Gateway",
+      "meta": "Fnplus Tech · Intern",
+      "link": "",
+      "linkText": "",
+      "group": "etcetera",
+      "order": 2,
+      "text": "Implemented a payment gateway integration using the Razorpay API as a project intern."
+    },
+    {
+      "slug": "cold-call-me",
+      "title": "Cold Call Me",
+      "meta": "Portfolio builder · Live app",
+      "link": "https://cold-call-me.vercel.app/",
+      "linkText": "",
+      "group": "highlight",
+      "order": 3,
+      "text": "A one-stop, MBA-specific portfolio builder for non-tech folks who need a presence without writing any code."
+    },
+    {
+      "slug": "customer-retention-campaigns",
+      "title": "Customer Retention & Campaigns",
+      "meta": "Kolathur Thanga Maligai · Marketing",
+      "link": "",
+      "linkText": "",
+      "group": "project",
+      "order": 3,
+      "text": "Marketing initiatives, seasonal campaigns, and personalized service lifted customer retention from ~45% to ~70%."
+    },
+    {
+      "slug": "chennai-compass",
+      "title": "Chennai Compass",
+      "meta": "City guide · Live app",
+      "link": "https://chennai-compass.vercel.app/",
+      "linkText": "",
+      "group": "highlight",
+      "order": 4,
+      "text": "A personal guide to Chennai for students arriving from other parts of the world."
+    },
+    {
+      "slug": "incident-management-standardization",
+      "title": "Incident Management Standardization",
+      "meta": "Cognizant · Reliability",
+      "link": "",
+      "linkText": "",
+      "group": "project",
+      "order": 4,
+      "text": "Standardized incident processes and SRE best practices, improving business uptime from 98.5% to 99.82%."
+    }
+  ]
+}

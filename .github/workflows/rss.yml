@@ -1,11 +1,13 @@
-name: Build RSS feed
+name: Build content manifests and RSS feed
 
 on:
   push:
     branches: [main]
     paths:
       - 'posts/**'
+      - 'builds/**'
       - 'scripts/build-rss.js'
+      - 'scripts/build-manifest.js'
   workflow_dispatch:
 
 permissions:
@@ -19,16 +21,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - name: Generate content manifests
+        run: node scripts/build-manifest.js
       - name: Generate feed.xml
         run: node scripts/build-rss.js
-      - name: Commit feed if changed
+      - name: Commit generated files if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add feed.xml
+          git add feed.xml posts/index.json builds/index.json
           if git diff --staged --quiet; then
-            echo "feed.xml unchanged."
+            echo "Nothing changed."
           else
-            git commit -m "chore: regenerate RSS feed [skip ci]"
+            git commit -m "chore: regenerate content manifests and RSS feed [skip ci]"
             git push
           fi

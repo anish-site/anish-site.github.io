@@ -1,0 +1,26 @@
+{
+  "generated": "2026-09-13T07:36:54.686Z",
+  "posts": [
+    {
+      "slug": "what-an-mba-teaches-an-engineer",
+      "title": "What an MBA Teaches an Engineer",
+      "date": "2026-06-18",
+      "category": "Learning",
+      "summary": "Early reflections from the PGPM at Great Lakes — finance, strategy, and the surprisingly hard skill of communicating simply."
+    },
+    {
+      "slug": "reliability-is-a-product-feature",
+      "title": "Reliability Is a Product Feature",
+      "date": "2026-06-10",
+      "category": "Product",
+      "summary": "Uptime, latency, and graceful failure aren't just engineering concerns — they shape how customers experience and trust a product."
+    },
+    {
+      "slug": "from-on-call-to-the-shop-floor",
+      "title": "From On-Call to the Shop Floor",
+      "date": "2026-05-22",
+      "category": "Career",
+      "summary": "What moving from engineering into running a business taught me about customers, margins, and making the call."
+    }
+  ]
+}
