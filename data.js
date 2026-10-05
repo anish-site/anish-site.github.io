@@ -15,9 +15,9 @@ const ICONS = {
 const PORTFOLIO = {
   profile: {
     name: "Anish J",
-    role: "Business & Operations Leader",
+    role: "Product and Business enthusiast",
     status: "PGPM Candidate · Great Lakes Institute of Management",
-    tagline: "Business leader experienced in scaling enterprise capabilities and driving growth through strategic thinking, decision-making, and stakeholder management.",
+    tagline: "Business professional having owned production systems, client reporting for 200+ enterprise stakeholders, and running retail operations across revenue and retention. Now identifying business problems and seeking to drive operational efficiency.",
     location: "Chennai, India",
     email: "anishjoson@gmail.com",
     linkedin: "https://www.linkedin.com/in/anish-j-",
@@ -79,7 +79,7 @@ const PORTFOLIO = {
     builds: {
       label: "Builds & Projects",
       icon: ICONS.builds,
-      tagline: "Top builds, plus the business and reliability projects I've led.",
+      tagline: "Apps I've built and shipped, plus a record of everything else.",
       blocks: [
         { type: "lead", text: "The highlights first — apps I've built and shipped. Click any card to open the live app. Everything else I've made is logged under Et Cetera so nothing's lost." },
         { type: "cards", group: "highlight", items: [
@@ -88,19 +88,13 @@ const PORTFOLIO = {
           { title: "Cold Call Me", meta: "Portfolio builder · Live app", text: "A one-stop, MBA-specific portfolio builder for non-tech folks who need a presence without writing any code.", link: "https://cold-call-me.vercel.app/" },
           { title: "Chennai Compass", meta: "City guide · Live app", text: "A personal guide to Chennai for students arriving from other parts of the world.", link: "https://chennai-compass.vercel.app/" }
         ]},
-        { type: "heading", text: "Projects" },
-        { type: "cards", group: "project", items: [
-          { title: "Revenue Growth Initiative", meta: "Kolathur Thanga Maligai · Business", text: "Owned pre- and post-sales management and seasonal campaigns that drove a 45% increase in revenue and an improved customer experience." },
-          { title: "Operational Efficiency Program", meta: "Kolathur Thanga Maligai · Operations", text: "Optimized inventory and procurement and managed vendor relations and stock reconciliation for a 25% efficiency gain." },
-          { title: "Customer Retention & Campaigns", meta: "Kolathur Thanga Maligai · Marketing", text: "Marketing initiatives, seasonal campaigns, and personalized service lifted customer retention from ~45% to ~70%." },
-          { title: "Incident Management Standardization", meta: "Cognizant · Reliability", text: "Standardized incident processes and SRE best practices, improving business uptime from 98.5% to 99.82%." }
-        ]},
-        { type: "heading", text: "Et Cetera" },
-        { type: "cards", group: "etcetera", items: [
+        // A group with no cards is hidden, heading included. Add a file with
+        // `group: project` to /builds and this section reappears on its own.
+        { type: "cards", group: "project", heading: "Projects", items: [] },
+        { type: "cards", group: "etcetera", heading: "Et Cetera", intro: "A running record of everything else — smaller apps, experiments, and one-offs.", items: [
           { title: "College Bus Tracking App", meta: "Android · 2019", text: "Led development of an Android application for real-time college bus tracking for students and staff." },
           { title: "Razorpay Payment Gateway", meta: "Fnplus Tech · Intern", text: "Implemented a payment gateway integration using the Razorpay API as a project intern." }
-        ]},
-        { type: "note", text: "A running record of everything else — smaller apps, experiments, and one-offs. (Send me more and I'll log them here.)" }
+        ]}
       ]
     },
 
@@ -121,13 +115,10 @@ const PORTFOLIO = {
       label: "Blog / Thoughts",
       icon: ICONS.blog,
       tagline: "Notes on business, reliability, and learning.",
+      // Posts come from Markdown files in /posts (see SETUP-BLOG.md).
+      // detail.html shows loading, empty and error states around this list.
       blocks: [
-        { type: "note", text: "Posts are written as Markdown files in the /posts folder and picked up automatically — add, edit, or delete a file to manage them (see SETUP-BLOG.md). The cards below are a fallback shown only if posts can't be loaded." },
-        { type: "cards", items: [
-          { title: "Reliability Is a Product Feature", meta: "Draft · Product", text: "Uptime, latency, and graceful failure aren't just engineering concerns — they shape how customers experience and trust a product.", link: "#", linkText: "Read (coming soon)" },
-          { title: "From On-Call to the Shop Floor", meta: "Draft · Career", text: "What moving from engineering into running a business taught me about customers, margins, and decisions.", link: "#", linkText: "Read (coming soon)" },
-          { title: "What an MBA Teaches an Engineer", meta: "Draft · Learning", text: "Early reflections from the PGPM at Great Lakes — finance, strategy, and communicating simply.", link: "#", linkText: "Read (coming soon)" }
-        ]}
+        { type: "posts" }
       ]
     }
   }
