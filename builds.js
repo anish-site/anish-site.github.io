@@ -108,16 +108,15 @@
     return fetch(FOLDER + '/index.json', { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error('manifest ' + r.status); return r.json(); })
       .then(function (j) {
-        var cards = (j && j.cards) || [];
-        if (!cards.length) throw new Error('manifest empty');
-        return group(cards);
+        if (!j || !Array.isArray(j.cards)) throw new Error('manifest malformed');
+        return group(j.cards);   // empty groups keep their built-in cards
       });
   }
 
   // Fallback: read the folder straight off GitHub (public repos only).
   function fromGitHub() {
     return listFiles().then(function (files) {
-      if (!files.length) throw new Error('no files');
+      if (!files.length) return group([]);
       return Promise.all(files.map(function (f) {
         return fetch(f.download_url || rawUrl(f.path), { cache: 'no-store' })
           .then(function (r) { return r.ok ? r.text() : ''; })
