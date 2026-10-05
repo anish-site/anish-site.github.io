@@ -32,8 +32,12 @@
   <main class="wrap">
     <article class="article" id="article">
       <a class="crumb" href="detail.html?s=blog">← Back to Blog</a>
-      <div id="article-body">
-        <p class="blk-para" style="opacity:.7">Loading post…</p>
+      <div id="article-body" aria-live="polite" aria-busy="true">
+        <div class="article-skeleton" aria-hidden="true">
+          <span class="sk sk-meta"></span><span class="sk sk-h1"></span>
+          <span class="sk sk-line"></span><span class="sk sk-line"></span><span class="sk sk-line"></span><span class="sk sk-line sk-short"></span>
+        </div>
+        <p class="sr-only">Loading post…</p>
       </div>
     </article>
   </main>
@@ -48,6 +52,7 @@
 
   <script src="config.js"></script>
   <script src="data.js"></script>
+  <script src="ui.js"></script>
   <script src="blog.js"></script>
   <script>
     (function (global) {
@@ -60,11 +65,12 @@
       function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
       if (!slug || !global.BlogSource) {
-        bodyEl.innerHTML = '<h1>Post not found</h1><p class="blk-para">No post was specified. <a href="detail.html?s=blog">Browse all posts →</a></p>';
+        notFound('No post was specified in the link.');
         return;
       }
 
       global.BlogSource.fetchPost(slug).then(function (post) {
+        bodyEl.removeAttribute('aria-busy');
         document.title = 'Anish J — ' + post.title;
         var meta = [post.category, post.date].filter(Boolean).join(' · ');
         bodyEl.innerHTML =
@@ -78,10 +84,21 @@
         bodyEl.querySelectorAll('.md-body a[href^="http"]').forEach(function (a) {
           a.target = '_blank'; a.rel = 'noopener';
         });
-      }).catch(function (err) {
-        bodyEl.innerHTML = '<h1>Post not found</h1><p class="blk-para">' + esc(err.message) +
-          '. <a href="detail.html?s=blog">Browse all posts →</a></p>';
+      }).catch(function () {
+        notFound("This post doesn't exist, or it may have been removed.");
       });
+
+      function notFound(why) {
+        bodyEl.removeAttribute('aria-busy');
+        document.title = 'Anish J — Post not found';
+        bodyEl.innerHTML = global.UI.state({
+          kind: 'missing',
+          title: 'Post not found',
+          text: why,
+          action: '<a class="btn btn-ghost" href="detail.html?s=blog">← All posts</a>' +
+                  '<a class="btn btn-ghost" href="index.html">Home</a>'
+        });
+      }
 
       // If the body repeats the title as an H1, drop it (we already show the title).
       function stripLeadingH1(md, title) {

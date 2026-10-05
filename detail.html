@@ -51,6 +51,7 @@
 
   <script src="config.js"></script>
   <script src="data.js"></script>
+  <script src="ui.js"></script>
   <script src="blog.js"></script>
   <script src="builds.js"></script>
   <script>
@@ -83,8 +84,9 @@
       // ---- section pills ----
       document.getElementById('section-nav').innerHTML = order.map(function (k) {
         var s = S[k];
-        var cls = (k === key) ? 'pill active' : 'pill';
-        return '<a class="' + cls + '" href="detail.html?s=' + k + '">' + s.icon + s.label + '</a>';
+        var cur = (k === key);
+        return '<a class="pill' + (cur ? ' active' : '') + '" href="detail.html?s=' + k + '"' +
+          (cur ? ' aria-current="page"' : '') + '>' + s.icon + s.label + '</a>';
       }).join('');
 
       // ---- shared card markup (used by the static blocks and the live loader) ----
@@ -147,9 +149,15 @@
                 '</div></div>';
             }).join('') + '</div></div>';
           case 'cards':
-            return '<div class="blk"><div class="cards"' +
-              (b.group ? ' data-group="' + esc(b.group) + '"' : '') + '>' +
-              b.items.map(cardHtml).join('') + '</div></div>';
+            // A group with nothing in it stays hidden (heading too) until the
+            // live loader fills it.
+            return '<section class="blk"' + (b.items.length ? '' : ' hidden') + '>' +
+              (b.heading ? '<h2 class="blk-heading">' + fmt(b.heading) + '</h2>' : '') +
+              (b.intro ? '<p class="blk-para blk-intro">' + fmt(b.intro) + '</p>' : '') +
+              '<div class="cards"' + (b.group ? ' data-group="' + esc(b.group) + '"' : '') + '>' +
+              b.items.map(cardHtml).join('') + '</div></section>';
+          case 'posts':
+            return '<div class="blk" id="posts" aria-live="polite"></div>';
           case 'note':
             return '<div class="blk"><div class="note"><span class="note-i">✎</span><span>' + fmt(b.text) + '</span></div></div>';
           default:
@@ -157,7 +165,9 @@
         }
       }
 
-      document.getElementById('detail-body').innerHTML = sec.blocks.map(renderBlock).join('');
+      var bodyEl = document.getElementById('detail-body');
+      bodyEl.innerHTML = sec.blocks.map(renderBlock).join('');
+      bodyEl.classList.add('fade-in');   // soft transition when switching sections
 
       // ---- Builds: load live cards from /builds Markdown (falls back to data.js) ----
       if (key === 'builds' && global.BuildsSource) {
@@ -167,56 +177,81 @@
             var items = groups[g];
             if (!items || !items.length) return; // empty group keeps its fallback
             var el = document.querySelector('#detail-body .cards[data-group="' + g + '"]');
-            if (el) el.innerHTML = items.map(cardHtml).join('');
+            if (!el) return;
+            el.innerHTML = items.map(cardHtml).join('');
+            el.closest('.blk').hidden = false;
           });
         });
       }
 
-      // ---- Blog: load live posts from /posts Markdown (falls back to samples) ----
-      if (key === 'blog' && global.BlogSource) {
-        var cardsEl = document.querySelector('#detail-body .cards');
-        if (cardsEl) {
-          cardsEl.insertAdjacentHTML('beforebegin',
-            '<p class="blk-para" id="blog-loading" style="opacity:.7">Loading latest posts…</p>');
-        }
-        global.BlogSource.fetchBlogs().then(function (posts) {
-          var loading = document.getElementById('blog-loading');
-          if (loading) loading.remove();
-          if (!posts || !posts.length) return; // keep built-in samples
+      // ---- Blog: posts from /posts Markdown, with loading / empty / error states ----
+      var postsEl = document.getElementById('posts');
+      if (postsEl && global.BlogSource) {
+        var loadPosts = function (retryBtn) {
+          postsEl.setAttribute('aria-busy', 'true');
+          if (retryBtn) global.UI.busy(retryBtn, true, 'Retrying…');
+          else postsEl.innerHTML = global.UI.skeleton(3, 'Loading posts…');
 
-          var html = posts.map(function (p) {
-            var meta = [p.category, p.date].filter(Boolean).join(' · ');
-            return '<a class="c-card c-card-link" data-category="' + esc(p.category || '') + '" href="post.html?p=' + encodeURIComponent(p.slug) + '">' +
-              '<h3>' + fmt(p.title) + '</h3>' +
-              (meta ? '<p class="c-meta">' + fmt(meta) + '</p>' : '') +
-              '<p class="c-text">' + fmt(p.summary) + '</p>' +
-              '<span class="c-link">Read →</span></a>';
-          }).join('');
-          var container = document.querySelector('#detail-body .cards');
-          if (!container) return;
-          container.innerHTML = html;
+          global.BlogSource.fetchBlogs().then(function (posts) {
+            postsEl.removeAttribute('aria-busy');
 
-          // category filter chips (only when there's more than one category)
-          var cats = {};
-          posts.forEach(function (p) { var c = (p.category || '').trim(); if (c) cats[c] = (cats[c] || 0) + 1; });
-          var catNames = Object.keys(cats);
-          if (catNames.length > 1) {
-            var chips = '<button class="filter-chip active" data-cat="*">All <span class="fc-count">' + posts.length + '</span></button>' +
-              catNames.map(function (c) {
-                return '<button class="filter-chip" data-cat="' + esc(c) + '">' + esc(c) + ' <span class="fc-count">' + cats[c] + '</span></button>';
-              }).join('');
-            container.insertAdjacentHTML('beforebegin', '<div class="blog-filter" id="blog-filter">' + chips + '</div>');
-            document.getElementById('blog-filter').addEventListener('click', function (e) {
-              var btn = e.target.closest('.filter-chip'); if (!btn) return;
-              var cat = btn.getAttribute('data-cat');
-              this.querySelectorAll('.filter-chip').forEach(function (b) { b.classList.toggle('active', b === btn); });
-              container.querySelectorAll('.c-card').forEach(function (card) {
-                var show = (cat === '*') || (card.getAttribute('data-category') === cat);
-                card.classList.toggle('is-hidden', !show);
+            if (posts === null) {                       // couldn't load at all
+              postsEl.innerHTML = global.UI.state({
+                kind: 'error',
+                title: "Couldn't load posts",
+                text: 'Something went wrong fetching posts. Check your connection and try again.',
+                action: '<button class="btn btn-ghost" type="button" data-retry>Try again</button>'
               });
-            });
-          }
-        });
+              postsEl.querySelector('[data-retry]').addEventListener('click', function () { loadPosts(this); });
+              return;
+            }
+            if (!posts.length) {                        // loaded fine, nothing published
+              postsEl.innerHTML = global.UI.state({
+                kind: 'empty',
+                title: 'No posts yet',
+                text: "Nothing published here yet — check back soon.",
+                action: '<a class="btn btn-ghost" href="detail.html?s=builds">See what I\'ve built →</a>'
+              });
+              return;
+            }
+
+            postsEl.innerHTML = '<div class="cards">' + posts.map(function (p) {
+              var meta = [p.category, p.date].filter(Boolean).join(' · ');
+              return '<a class="c-card c-card-link" data-category="' + esc(p.category || '') + '" href="post.html?p=' + encodeURIComponent(p.slug) + '">' +
+                '<h3>' + fmt(p.title) + '</h3>' +
+                (meta ? '<p class="c-meta">' + fmt(meta) + '</p>' : '') +
+                '<p class="c-text">' + fmt(p.summary) + '</p>' +
+                '<span class="c-link">Read →</span></a>';
+            }).join('') + '</div>';
+            var container = postsEl.querySelector('.cards');
+
+            // category filter chips (only when there's more than one category)
+            var cats = {};
+            posts.forEach(function (p) { var c = (p.category || '').trim(); if (c) cats[c] = (cats[c] || 0) + 1; });
+            var catNames = Object.keys(cats);
+            if (catNames.length > 1) {
+              var chips = '<button class="filter-chip active" type="button" aria-pressed="true" data-cat="*">All <span class="fc-count">' + posts.length + '</span></button>' +
+                catNames.map(function (c) {
+                  return '<button class="filter-chip" type="button" aria-pressed="false" data-cat="' + esc(c) + '">' + esc(c) + ' <span class="fc-count">' + cats[c] + '</span></button>';
+                }).join('');
+              container.insertAdjacentHTML('beforebegin', '<div class="blog-filter" role="group" aria-label="Filter posts">' + chips + '</div>');
+              postsEl.querySelector('.blog-filter').addEventListener('click', function (e) {
+                var btn = e.target.closest('.filter-chip'); if (!btn) return;
+                var cat = btn.getAttribute('data-cat');
+                this.querySelectorAll('.filter-chip').forEach(function (b) {
+                  b.classList.toggle('active', b === btn);
+                  b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+                });
+                container.querySelectorAll('.c-card').forEach(function (card) {
+                  var show = (cat === '*') || (card.getAttribute('data-category') === cat);
+                  card.classList.toggle('is-hidden', !show);
+                  if (show) { card.classList.remove('fade-in'); void card.offsetWidth; card.classList.add('fade-in'); }
+                });
+              });
+            }
+          });
+        };
+        loadPosts();
       }
     })(window);
   </script>
