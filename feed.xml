@@ -6,30 +6,7 @@
     <atom:link href="https://anish-site.github.io/feed.xml" rel="self" type="application/rss+xml" />
     <description>Notes on product, reliability, and learning by Anish J.</description>
     <language>en</language>
-    <lastBuildDate>Sun, 13 Sep 2026 07:39:40 GMT</lastBuildDate>
-    <item>
-      <title>What an MBA Teaches an Engineer</title>
-      <link>https://anish-site.github.io/post.html?p=what-an-mba-teaches-an-engineer</link>
-      <guid isPermaLink="true">https://anish-site.github.io/post.html?p=what-an-mba-teaches-an-engineer</guid>
-      <pubDate>Thu, 18 Jun 2026 00:00:00 GMT</pubDate>
-      <category>Learning</category>
-      <description>Early reflections from the PGPM at Great Lakes — finance, strategy, and the surprisingly hard skill of communicating simply.</description>
-    </item>
-    <item>
-      <title>Reliability Is a Product Feature</title>
-      <link>https://anish-site.github.io/post.html?p=reliability-is-a-product-feature</link>
-      <guid isPermaLink="true">https://anish-site.github.io/post.html?p=reliability-is-a-product-feature</guid>
-      <pubDate>Wed, 10 Jun 2026 00:00:00 GMT</pubDate>
-      <category>Product</category>
-      <description>Uptime, latency, and graceful failure aren&apos;t just engineering concerns — they shape how customers experience and trust a product.</description>
-    </item>
-    <item>
-      <title>From On-Call to the Shop Floor</title>
-      <link>https://anish-site.github.io/post.html?p=from-on-call-to-the-shop-floor</link>
-      <guid isPermaLink="true">https://anish-site.github.io/post.html?p=from-on-call-to-the-shop-floor</guid>
-      <pubDate>Fri, 22 May 2026 00:00:00 GMT</pubDate>
-      <category>Career</category>
-      <description>What moving from engineering into running a business taught me about customers, margins, and making the call.</description>
-    </item>
+    <lastBuildDate>Mon, 05 Oct 2026 17:28:23 GMT</lastBuildDate>
+
   </channel>
 </rss>

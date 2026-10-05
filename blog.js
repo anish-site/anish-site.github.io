@@ -6,8 +6,8 @@
      BlogSource.fetchBlogs()       -> Promise<[post]>  (list, newest-first)
      BlogSource.fetchPost(slug)    -> Promise<post>    (single, with body)
      BlogSource.renderMarkdown(md) -> sanitized HTML
-   fetchBlogs resolves to null on failure so callers can fall back
-   to the built-in sample cards.
+   fetchBlogs resolves to [] when there are no posts, and to null only
+   when posts couldn't be loaded — callers show an empty or error state.
    ============================================================ */
 (function (global) {
   var cfg = (global.SITE_CONFIG && global.SITE_CONFIG.blog) || {};
@@ -93,16 +93,16 @@
     return fetch(FOLDER + '/index.json', { cache: 'no-store' })
       .then(function (r) { if (!r.ok) throw new Error('manifest ' + r.status); return r.json(); })
       .then(function (j) {
-        var posts = (j && j.posts) || [];
-        if (!posts.length) throw new Error('manifest empty');
-        return posts.slice().sort(sortByDateDesc);
+        // An empty list is a real answer ("no posts yet"), not a failure.
+        if (!j || !Array.isArray(j.posts)) throw new Error('manifest malformed');
+        return j.posts.slice().sort(sortByDateDesc);
       });
   }
 
   // Fallback: read the folder straight off GitHub (public repos only).
   function fromGitHub() {
     return listFiles().then(function (files) {
-      if (!files.length) throw new Error('no files');
+      if (!files.length) return [];
       return Promise.all(files.map(function (f) {
         return fetch(f.download_url || rawUrl(f.path), { cache: 'no-store' })
           .then(function (r) { return r.ok ? r.text() : ''; })
