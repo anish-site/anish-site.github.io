@@ -7,7 +7,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const SITE = 'https://anish-site.github.io';
+const SITE = 'https://anish-j.buzz';
 const TITLE = 'Anish J — Thoughts';
 const DESCRIPTION = 'Notes on product, reliability, and learning by Anish J.';
 const POSTS_DIR = path.join(__dirname, '..', 'posts');
